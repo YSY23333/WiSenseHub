@@ -12,7 +12,9 @@
   <header class="topbar"><a class="brand" href="index.html"><span class="brand-mark">W</span> WiSenseHub</a><nav><a href="index.html#datasets">Datasets</a><a href="index.html#standard">Standard</a></nav></header>
   <main class="detail-shell example-shell">
     <a class="back-link" href="index.html">← Home</a>
-    <section class="detail-hero"><p class="eyebrow">REPRODUCIBLE EXAMPLE</p><h1>One command, auditable tensors.</h1><p>An irregular 50 Hz complex CSI stream is converted into a fixed four-second, 100 Hz sample. This fixture is synthetic and tests the pipeline—not model accuracy.</p></section>
+    <section class="detail-hero"><p class="eyebrow">REPRODUCIBLE EXAMPLES</p><h1>One workflow, 25 concrete adapters.</h1><p>Every dataset page now shows its official source layout, exact prepare command, inspection snippet, primary output array, expected shape, and dataset-specific caveat.</p></section>
+    <section class="dataset-example-index"><div class="section-heading"><div><p class="eyebrow">CHOOSE A RELEASE</p><h2>Dataset-specific walkthroughs</h2></div><p>The examples use official filenames and directory conventions; the original bytes remain with their creators.</p></div><div id="example-grid" class="example-link-grid"><p>Loading dataset examples…</p></div></section>
+    <section class="section-heading"><div><p class="eyebrow">PIPELINE FIXTURE</p><h2>Synthetic resampling example</h2></div><p>This small fixture tests interpolation and the output contract without downloading research data.</p></section>
     <section class="example-command"><pre><code>python -m wifi_datahub standardize \
   --input examples/data/synthetic_csi.csv \
   --output examples/data/standardized/synthetic_csi.npz \
@@ -24,4 +26,3 @@
   <script src="assets/example.js" defer></script>
 </body>
 </html>
-

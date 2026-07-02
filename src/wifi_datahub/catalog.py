@@ -106,6 +106,22 @@ def validate_catalog(root: Path | None = None) -> Tuple[List[Dict[str, Any]], Li
                         errors.append(f"catalog/{registry_name}: {dataset_id}/{setting.get('id')} needs group_by")
 
     try:
+        examples = json.loads((root / "catalog" / "examples.json").read_text(encoding="utf-8"))["datasets"]
+    except (FileNotFoundError, KeyError, json.JSONDecodeError) as exc:
+        errors.append(f"catalog/examples.json: invalid registry: {exc}")
+    else:
+        missing = sorted(catalog_ids - set(examples))
+        extra = sorted(set(examples) - catalog_ids)
+        if missing:
+            errors.append(f"catalog/examples.json: missing datasets {missing}")
+        if extra:
+            errors.append(f"catalog/examples.json: unknown datasets {extra}")
+        for dataset_id, example in examples.items():
+            for field in ("source_path", "primary_array", "expected_shape", "note"):
+                if not isinstance(example.get(field), str) or not example[field].strip():
+                    errors.append(f"catalog/examples.json: {dataset_id} has invalid {field}")
+
+    try:
         import jsonschema  # type: ignore
     except ImportError:
         jsonschema = None

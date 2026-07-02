@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "datasets": {
+    "aril": {"source_path": "data/train_data_split_amp.mat", "primary_array": "amplitude", "expected_shape": "[N, 192, 1, 52]", "note": "The matching activity and location labels are stored in the same standardized NPZ."},
+    "csi-bench": {"source_path": "supervised/human_activity.mat", "primary_array": "amplitude", "expected_shape": "[N, T, L, S]", "note": "The official MAT key X is retained and a link axis is inserted when needed."},
+    "csida": {"source_path": "CSIDA/csi_data_amp", "primary_array": "amplitude", "expected_shape": "[N, T, 3, 114]", "note": "Keep csi_data_pha and all csi_label_* Zarr arrays beside csi_data_amp."},
+    "ehunam": {"source_path": "Office/MC1_01A_1_HAR_e_J_#_#_01.mat", "primary_array": "amplitude", "expected_shape": "[T, 1, 56 or 242]", "note": "Null carriers are removed from the CSI/BW/Subcarriers metadata."},
+    "exposing-csi": {"source_path": "S1_A.mat", "primary_array": "amplitude", "expected_shape": "[T, 4, 1990]", "note": "The adapter FFT-shifts AX-CSI, removes official null bins, and deinterleaves four monitor streams."},
+    "figshare-csi-har": {"source_path": "room_1/session_1/data.csv", "primary_array": "amplitude", "expected_shape": "[T, 4, 114]", "note": "Keep label.csv beside data.csv so activity labels are attached automatically."},
+    "glasgow-activity-localization": {"source_path": "Location1/Zone1/walking_01.csv", "primary_array": "amplitude", "expected_shape": "[T, 1, 52]", "note": "The official CSV contains processed USRP-OFDM CSI amplitude."},
+    "glasgow-multiuser": {"source_path": "1_Subject_Sitting/1_Sitting_01.csv", "primary_array": "amplitude", "expected_shape": "[T, 1, 52]", "note": "The class directory is retained as source-label provenance."},
+    "mm-fi": {"source_path": "E01/S01/A01/wifi-csi/", "primary_array": "amplitude", "expected_shape": "[T, L, S]", "note": "Place the complete frame*.mat directory; E/S/A identifiers drive environment, subject, and activity metadata."},
+    "nist-breathesmart": {"source_path": "config0001_csi_real_log.csv", "primary_array": "amplitude", "expected_shape": "[T, 9, 114]", "note": "Keep the matching imaginary log and config0001.csv in the same directory."},
+    "ntu-fi": {"source_path": "train_amp/walk/sample_001.mat", "primary_array": "amplitude", "expected_shape": "[T, 3, 114]", "note": "SenseFi's time-axis downsampling and canonical transpose are applied."},
+    "operanet": {"source_path": "WiFi/exp001.mat", "primary_array": "amplitude", "expected_shape": "[T, 9, 30]", "note": "The 270 tx/rx/subcarrier MATLAB-table fields are ordered deterministically."},
+    "signfi": {"source_path": "dataset_lab_276_dl.mat", "primary_array": "amplitude", "expected_shape": "[N, 200, 3, 30]", "note": "Complex CSI and lab/home labels are retained."},
+    "ut-har": {"source_path": "UT_HAR/data/processed.npz", "primary_array": "amplitude", "expected_shape": "[N, 250, 3, 30]", "note": "NPZ requires data and label arrays; official NumPy-payload .csv files are also supported with a matching label/ tree."},
+    "wallhack18k": {"source_path": "LOS/BQ/w1.csv", "primary_array": "amplitude", "expected_shape": "[T, 1, 52]", "note": "Interleaved imaginary/real samples are parsed and documented ESP32 subcarriers are selected."},
+    "wiar": {"source_path": "office/subject_01/walk_01.dat", "primary_array": "amplitude", "expected_shape": "[T, Tx×Rx, 30]", "note": "The Intel 5300 beamforming records are decoded directly from the official binary format."},
+    "widar3": {"source_path": "Widardata/train/user1/gesture1/sample.csv", "primary_array": "bvp", "expected_shape": "[22, 20, 20]", "note": "This benchmark release stores processed BVP rather than raw CSI."},
+    "wifi-80mhz": {"source_path": "AR1a_W.mat", "primary_array": "amplitude", "expected_shape": "[T, 4, 242]", "note": "256/1024-bin CFR traces are converted to 242 carriers and four monitor links."},
+    "wifi-presence-movement": {"source_path": "G19-10.csi.json.gz", "primary_array": "amplitude", "expected_shape": "[T, L, 30]", "note": "Gzip JSON Lines are streamed and r/i complex fields are preserved."},
+    "wifi-tad": {"source_path": "smartwifi/validation_npy/video_01.npy", "primary_array": "amplitude", "expected_shape": "[T, 1, 60]", "note": "Keep the annotations directory beside smartwifi to attach temporal activity segments."},
+    "wimans": {"source_path": "wifi_csi/amp/act_1_1.npy", "primary_array": "amplitude", "expected_shape": "[T, L, S]", "note": "Both official amplitude NPY and raw MAT branches are recognized."},
+    "wipe-fall": {"source_path": "low_risk/trial_001.csv", "primary_array": "amplitude", "expected_shape": "[T, 1, 51]", "note": "The requested release is amplitude-only; keep risk/trial directories for provenance."},
+    "wireless-har-wifi-uwb": {"source_path": "Wireless_sensing_human_activity_recognition/WiFi_CSI/Room_1/walk_01.mat", "primary_array": "amplitude", "expected_shape": "[T, L, S]", "note": "Only files below WiFi_CSI are converted; the sibling UWB branch is intentionally excluded."},
+    "xrf-v2": {"source_path": "WiFi/sequence_001.h5", "primary_array": "amplitude", "expected_shape": "[T, 9, 30]", "note": "Three receivers and three channels are flattened into nine documented links."},
+    "xrf55": {"source_path": "Raw_dataset/WiFi/sample_001.npy", "primary_array": "amplitude", "expected_shape": "[T, 9, 30]", "note": "Only the WiFi modality branch is discovered by this adapter."}
+  }
+}

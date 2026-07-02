@@ -61,6 +61,9 @@ Run `wisensehub settings <dataset-id>` to see the exact recognized layout and
 reference. Keep the downloaded directory tree intact: extract/copy the complete
 release into `original/` and run `prepare`—manual file renaming is not required.
 See the [adapter matrix](docs/adapters.md) and [split settings](docs/splits.md).
+The website also provides one concrete source-layout and conversion walkthrough
+for every catalog dataset; these examples are maintained in
+`catalog/examples.json` and validated with the rest of the catalog.
 
 Run the standardization demonstration:
 

@@ -22,9 +22,11 @@ def main() -> int:
     tasks = load_tasks(ROOT)
     adapters = json.loads((ROOT / "catalog" / "adapters.json").read_text(encoding="utf-8"))["datasets"]
     splits = json.loads((ROOT / "catalog" / "splits.json").read_text(encoding="utf-8"))["datasets"]
+    examples = json.loads((ROOT / "catalog" / "examples.json").read_text(encoding="utf-8"))["datasets"]
     for dataset in datasets:
         dataset["conversion"] = adapters[dataset["id"]]
         dataset["split_settings"] = splits[dataset["id"]]
+        dataset["conversion_example"] = examples[dataset["id"]]
     task_counts = Counter(task for dataset in datasets for task in dataset["tasks"])
     payload = {
         "generated_at": "2026-07-01",
