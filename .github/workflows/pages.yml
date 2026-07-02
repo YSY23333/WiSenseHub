@@ -31,6 +31,8 @@ jobs:
       - run: python -m wifi_datahub quality --input examples/data/standardized/synthetic_csi.npz --output site/data/example-quality.json
       - run: python scripts/build_site_data.py
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
