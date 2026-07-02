@@ -6,6 +6,6 @@
   "settings": {"environments": 1, "subjects": null, "scenario": "Controlled single-person indoor activities"},
   "scale": {"samples": 4973, "classes": 7, "shape": "250×90"},
   "original": {"landing_page": "https://github.com/ermongroup/Wifi_Activity_Recognition", "download_page": "https://github.com/xyanchen/WiFi-CSI-Sensing-Benchmark", "access": "account", "license": "Dataset license not clearly stated", "redistribution": "unclear", "formats": ["CSV processed amplitude"]},
-  "standardization": {"status": "adapter-ready", "profile": "clip-250-packets", "notes": "Shape adapter converts processed amplitude to [sample, packet, link, subcarrier] without inventing phase or timestamps."},
-  "sources": [{"type": "repository", "url": "https://github.com/ermongroup/Wifi_Activity_Recognition"}, {"type": "repository", "url": "https://github.com/xyanchen/WiFi-CSI-Sensing-Benchmark"}], "verified_at": "2026-06-28"
+  "standardization": {"status": "verified", "profile": "clip-250-packets", "notes": "Verified on the official SenseFi X_test/y_test pair. Values are upstream processed amplitude features and can be negative; no phase, timestamp, or physical power is invented."},
+  "sources": [{"type": "repository", "url": "https://github.com/ermongroup/Wifi_Activity_Recognition"}, {"type": "repository", "url": "https://github.com/xyanchen/WiFi-CSI-Sensing-Benchmark"}], "verified_at": "2026-07-02"
 }

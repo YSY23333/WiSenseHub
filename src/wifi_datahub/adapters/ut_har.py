@@ -45,9 +45,13 @@ def convert_ut_har_npz(input_path: Path, output_path: Path) -> Path:
             data_index = len(parts) - 1 - parts[::-1].index("data")
         except ValueError as exc:
             raise ValueError("UT-HAR array file must be in a data/ directory") from exc
-        label_path = Path(*parts[:data_index], "label", *parts[data_index + 1:])
+        label_root = Path(*parts[:data_index], "label", *parts[data_index + 1:-1])
+        names = [input_path.name]
+        if input_path.name.startswith(("X_", "x_")):
+            names.insert(0, "y_" + input_path.name[2:])
+        label_path = next((label_root / name for name in names if (label_root / name).exists()), label_root / names[0])
         if not label_path.exists():
-            raise ValueError(f"matching UT-HAR label file not found: {label_path}")
+            raise ValueError(f"matching UT-HAR label file not found; tried: {', '.join(str(label_root / name) for name in names)}")
         data, label = source, np.load(label_path, allow_pickle=False)
     amplitude, labels = normalize_ut_har_arrays(data, label)
     output_path.parent.mkdir(parents=True, exist_ok=True)

@@ -112,6 +112,23 @@ class StandardizeTests(unittest.TestCase):
             loaded = np.load(output)
             self.assertEqual(loaded["amplitude"].shape, (2, 250, 3, 30))
 
+    def test_ut_har_official_sensefi_x_y_filename_pair(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            data_path = root / "ut-har" / "original" / "UT_HAR" / "data" / "X_test.csv"
+            label_path = root / "ut-har" / "original" / "UT_HAR" / "label" / "y_test.csv"
+            data_path.parent.mkdir(parents=True)
+            label_path.parent.mkdir(parents=True)
+            with data_path.open("wb") as handle:
+                np.save(handle, np.zeros((2, 250, 90), dtype=np.float32))
+            with label_path.open("wb") as handle:
+                np.save(handle, np.asarray([0, 1], dtype=np.int64))
+            summary = prepare_dataset("ut-har", root, setting="official")
+            self.assertEqual(summary["converted"], 1)
+            output = root / "ut-har" / "standardized" / "UT_HAR__data__X_test.npz"
+            self.assertEqual(np.load(output)["amplitude"].shape, (2, 250, 3, 30))
+            self.assertEqual(summary["split"]["partition_counts"]["test"], 2)
+
     def test_all_catalog_datasets_have_prepare_adapters(self):
         self.assertEqual(registered_datasets(), sorted(item["id"] for item in load_datasets()))
 

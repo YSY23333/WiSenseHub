@@ -2,6 +2,8 @@
 
 ## 0.5.0 — 2026-07-01
 
+- Verified the UT-HAR adapter against the official SenseFi test split and fixed
+  the released `X_test.csv` to `y_test.csv` label-pair naming convention.
 - Replaced extension-only fallback conversion with per-dataset source discovery
   and dataset-aware adapters for all 25 catalog entries.
 - Ported official structures for Intel 5300 binary CSI, Zarr, gzip JSON Lines,

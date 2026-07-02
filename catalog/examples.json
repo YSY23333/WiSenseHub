@@ -14,7 +14,7 @@
     "ntu-fi": {"source_path": "train_amp/walk/sample_001.mat", "primary_array": "amplitude", "expected_shape": "[T, 3, 114]", "note": "SenseFi's time-axis downsampling and canonical transpose are applied."},
     "operanet": {"source_path": "WiFi/exp001.mat", "primary_array": "amplitude", "expected_shape": "[T, 9, 30]", "note": "The 270 tx/rx/subcarrier MATLAB-table fields are ordered deterministically."},
     "signfi": {"source_path": "dataset_lab_276_dl.mat", "primary_array": "amplitude", "expected_shape": "[N, 200, 3, 30]", "note": "Complex CSI and lab/home labels are retained."},
-    "ut-har": {"source_path": "UT_HAR/data/processed.npz", "primary_array": "amplitude", "expected_shape": "[N, 250, 3, 30]", "note": "NPZ requires data and label arrays; official NumPy-payload .csv files are also supported with a matching label/ tree."},
+    "ut-har": {"source_path": "UT_HAR/data/X_test.csv", "primary_array": "amplitude", "expected_shape": "[N, 250, 3, 30]", "note": "Keep UT_HAR/label/y_test.csv beside the data/ tree; these .csv files contain NumPy binary payloads."},
     "wallhack18k": {"source_path": "LOS/BQ/w1.csv", "primary_array": "amplitude", "expected_shape": "[T, 1, 52]", "note": "Interleaved imaginary/real samples are parsed and documented ESP32 subcarriers are selected."},
     "wiar": {"source_path": "office/subject_01/walk_01.dat", "primary_array": "amplitude", "expected_shape": "[T, Tx×Rx, 30]", "note": "The Intel 5300 beamforming records are decoded directly from the official binary format."},
     "widar3": {"source_path": "Widardata/train/user1/gesture1/sample.csv", "primary_array": "bvp", "expected_shape": "[22, 20, 20]", "note": "This benchmark release stores processed BVP rather than raw CSI."},
