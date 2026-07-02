@@ -1,0 +1,12 @@
+{
+  "id": "wipe-fall", "name": "WiPE-FaLl", "year": 2024,
+  "summary": "Wireless CSI amplitude dataset for estimating low, medium, and high fall likelihood from simulated timed up-and-go tests.",
+  "tasks": ["fall"], "modalities": ["Wireless CSI amplitude"],
+  "hardware": {"platform": "Two USRP X300 software-defined radios with VERT2450 antennas", "chipset": "USRP X300", "wifi_standard": "Custom OFDM", "band": null},
+  "settings": {"environments": 1, "subjects": null, "scenario": "Timed up-and-go trials under three simulated balance-risk conditions"},
+  "scale": {"samples": 1500, "risk_classes": 3},
+  "original": {"landing_page": "https://researchdata.gla.ac.uk/1623/", "download_page": "https://researchdata.gla.ac.uk/1623/", "access": "direct", "license": "University repository terms; verify record", "redistribution": "unclear", "formats": ["CSV amplitude"]},
+  "standardization": {"status": "adapter-ready", "profile": "clip-native", "notes": "Keep fall-risk estimation distinct from binary fall-event detection and preserve trial/subject identifiers when available."},
+  "sources": [{"type": "data", "url": "https://researchdata.gla.ac.uk/1623/"}], "verified_at": "2026-07-01"
+}
+

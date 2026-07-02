@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use WiSenseHub, please cite this software and the original datasets."
+title: "WiSenseHub: A Task-Oriented WiFi Sensing Data Hub"
+type: software
+version: 0.5.0
+date-released: 2026-07-08
+license: MIT
+authors:
+  - family-names: "Your surname"
+    given-names: "Your given name"

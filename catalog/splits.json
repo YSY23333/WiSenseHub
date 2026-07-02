@@ -1,0 +1,145 @@
+{
+  "schema_version": "1.0",
+  "datasets": {
+    "aril": {"default": "official", "settings": [
+      {"id": "official", "kind": "predefined", "provenance": "official", "description": "Preserve the released 1116/324 train/test files.", "source": "https://github.com/geekfeiw/ARIL"},
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.7, 0.15, 0.15]},
+      {"id": "cross_location", "kind": "group_holdout", "group_by": "location", "provenance": "paper", "description": "Hold out labeled indoor locations."}
+    ]},
+    "csi-bench": {"default": "official_id", "settings": [
+      {"id": "official_id", "kind": "external_json", "provenance": "official", "pattern": "**/*_id*.json", "description": "Official in-distribution train/val/test lists."},
+      {"id": "cross_subject", "kind": "external_json", "provenance": "official", "pattern": "**/*cross_user*.json"},
+      {"id": "cross_environment", "kind": "external_json", "provenance": "official", "pattern": "**/*cross_env*.json"},
+      {"id": "cross_device", "kind": "external_json", "provenance": "official", "pattern": "**/*cross_device*.json"},
+      {"id": "difficulty_easy", "kind": "external_json", "provenance": "official", "pattern": "**/*easy*.json"},
+      {"id": "difficulty_medium", "kind": "external_json", "provenance": "official", "pattern": "**/*medium*.json"},
+      {"id": "difficulty_hard", "kind": "external_json", "provenance": "official", "pattern": "**/*hard*.json"},
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.7, 0.15, 0.15]}
+    ]},
+    "csida": {"default": "random", "settings": [
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.7, 0.15, 0.15]},
+      {"id": "cross_subject", "kind": "group_holdout", "group_by": "subject", "provenance": "paper"},
+      {"id": "cross_environment", "kind": "group_holdout", "group_by": "environment", "provenance": "paper"},
+      {"id": "cross_location", "kind": "group_holdout", "group_by": "location", "provenance": "paper"}
+    ]},
+    "ehunam": {"default": "random", "settings": [
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.7, 0.15, 0.15]},
+      {"id": "cross_subject", "kind": "group_holdout", "group_by": "subject", "provenance": "paper"},
+      {"id": "cross_environment", "kind": "group_holdout", "group_by": "environment", "provenance": "paper"},
+      {"id": "cross_device", "kind": "group_holdout", "group_by": "device", "provenance": "hub"}
+    ]},
+    "exposing-csi": {"default": "random", "settings": [
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.7, 0.15, 0.15]},
+      {"id": "cross_environment", "kind": "group_holdout", "group_by": "environment", "provenance": "paper"},
+      {"id": "cross_device", "kind": "group_holdout", "group_by": "device", "provenance": "paper"}
+    ]},
+    "figshare-csi-har": {"default": "random", "settings": [
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.7, 0.15, 0.15]},
+      {"id": "cross_environment", "kind": "group_holdout", "group_by": "environment", "provenance": "paper", "description": "Hold out one of the three rooms."}
+    ]},
+    "glasgow-activity-localization": {"default": "random", "settings": [
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.7, 0.15, 0.15]},
+      {"id": "cross_location", "kind": "group_holdout", "group_by": "location", "provenance": "paper"},
+      {"id": "cross_environment", "kind": "group_holdout", "group_by": "environment", "provenance": "hub"}
+    ]},
+    "glasgow-multiuser": {"default": "random", "settings": [
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.7, 0.15, 0.15]},
+      {"id": "cross_occupancy", "kind": "group_holdout", "group_by": "occupancy", "provenance": "hub"}
+    ]},
+    "mm-fi": {"default": "random", "settings": [
+      {"id": "random", "kind": "random", "provenance": "official", "ratios": [0.8, 0.1, 0.1]},
+      {"id": "cross_subject", "kind": "group_holdout", "group_by": "subject", "provenance": "official"},
+      {"id": "cross_environment", "kind": "group_holdout", "group_by": "environment", "provenance": "official"}
+    ]},
+    "nist-breathesmart": {"default": "by_experiment", "settings": [
+      {"id": "by_experiment", "kind": "group_holdout", "group_by": "experiment", "provenance": "hub", "description": "Keep publication-figure experiments separate."},
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.7, 0.15, 0.15]}
+    ]},
+    "ntu-fi": {"default": "official", "settings": [
+      {"id": "official", "kind": "predefined", "provenance": "official", "description": "Preserve SenseFi train/test directories."},
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.8, 0.1, 0.1]},
+      {"id": "cross_subject", "kind": "group_holdout", "group_by": "subject", "provenance": "hub"}
+    ]},
+    "operanet": {"default": "random", "settings": [
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.7, 0.15, 0.15]},
+      {"id": "cross_subject", "kind": "group_holdout", "group_by": "subject", "provenance": "paper"},
+      {"id": "cross_environment", "kind": "group_holdout", "group_by": "environment", "provenance": "paper"}
+    ]},
+    "signfi": {"default": "official_groups", "settings": [
+      {"id": "official_groups", "kind": "source_groups", "group_by": "release_group", "provenance": "official", "description": "Preserve Home276, Lab276, Lab+Home276, and Lab150 release groups.", "source": "https://yongsen.github.io/SignFi/"},
+      {"id": "cross_subject", "kind": "group_holdout", "group_by": "subject", "provenance": "paper"},
+      {"id": "cross_environment", "kind": "group_holdout", "group_by": "environment", "provenance": "paper"},
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.7, 0.15, 0.15]}
+    ]},
+    "ut-har": {"default": "official", "settings": [
+      {"id": "official", "kind": "predefined", "provenance": "official", "description": "Preserve released 3977/996 train/test split."},
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.8, 0.1, 0.1]}
+    ]},
+    "wallhack18k": {"default": "official", "settings": [
+      {"id": "official", "kind": "predefined", "provenance": "official", "description": "Preserve trainLabels, validationLabels, and testLabels."},
+      {"id": "cross_environment", "kind": "group_holdout", "group_by": "scenario", "provenance": "official", "description": "LoS versus NLoS/through-wall."},
+      {"id": "cross_device", "kind": "group_holdout", "group_by": "device", "provenance": "official", "description": "BQ versus PIFA WiFi systems."},
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.7, 0.15, 0.15]}
+    ]},
+    "wiar": {"default": "random", "settings": [
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.7, 0.15, 0.15]},
+      {"id": "cross_subject", "kind": "group_holdout", "group_by": "subject", "provenance": "paper"},
+      {"id": "cross_environment", "kind": "group_holdout", "group_by": "environment", "provenance": "paper"}
+    ]},
+    "widar3": {"default": "random", "settings": [
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.7, 0.15, 0.15]},
+      {"id": "cross_subject", "kind": "group_holdout", "group_by": "subject", "provenance": "official"},
+      {"id": "cross_environment", "kind": "group_holdout", "group_by": "environment", "provenance": "official"},
+      {"id": "cross_location", "kind": "group_holdout", "group_by": "location", "provenance": "official"},
+      {"id": "cross_orientation", "kind": "group_holdout", "group_by": "orientation", "provenance": "official"},
+      {"id": "cross_device", "kind": "group_holdout", "group_by": "device", "provenance": "official", "description": "Receiver/deployment holdout."}
+    ]},
+    "wifi-80mhz": {"default": "random", "settings": [
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.7, 0.15, 0.15]},
+      {"id": "cross_subject", "kind": "group_holdout", "group_by": "subject", "provenance": "paper"},
+      {"id": "cross_environment", "kind": "group_holdout", "group_by": "environment", "provenance": "paper"},
+      {"id": "cross_device", "kind": "group_holdout", "group_by": "device", "provenance": "paper"},
+      {"id": "cross_day", "kind": "group_holdout", "group_by": "day", "provenance": "paper"}
+    ]},
+    "wifi-presence-movement": {"default": "random", "settings": [
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.7, 0.15, 0.15]},
+      {"id": "cross_environment", "kind": "group_holdout", "group_by": "environment", "provenance": "paper"},
+      {"id": "cross_location", "kind": "group_holdout", "group_by": "location", "provenance": "hub"},
+      {"id": "cross_day", "kind": "group_holdout", "group_by": "day", "provenance": "hub"}
+    ]},
+    "wifi-tad": {"default": "official", "settings": [
+      {"id": "official", "kind": "predefined", "provenance": "official", "description": "Released 70/30 train/test protocol."},
+      {"id": "cross_subject", "kind": "group_holdout", "group_by": "subject", "provenance": "paper"},
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.7, 0.15, 0.15]}
+    ]},
+    "wimans": {"default": "random", "settings": [
+      {"id": "random", "kind": "random", "provenance": "paper", "ratios": [0.7, 0.15, 0.15]},
+      {"id": "cross_subject", "kind": "group_holdout", "group_by": "subject", "provenance": "hub"},
+      {"id": "cross_environment", "kind": "group_holdout", "group_by": "environment", "provenance": "hub"},
+      {"id": "cross_band", "kind": "group_holdout", "group_by": "band", "provenance": "hub"}
+    ]},
+    "wipe-fall": {"default": "random", "settings": [
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.7, 0.15, 0.15]},
+      {"id": "cross_subject", "kind": "group_holdout", "group_by": "subject", "provenance": "hub"},
+      {"id": "cross_location", "kind": "group_holdout", "group_by": "location", "provenance": "paper"},
+      {"id": "cross_environment", "kind": "group_holdout", "group_by": "environment", "provenance": "paper"}
+    ]},
+    "wireless-har-wifi-uwb": {"default": "random", "settings": [
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.7, 0.15, 0.15]},
+      {"id": "cross_subject", "kind": "group_holdout", "group_by": "subject", "provenance": "paper"},
+      {"id": "cross_environment", "kind": "group_holdout", "group_by": "environment", "provenance": "paper"},
+      {"id": "cross_device", "kind": "group_holdout", "group_by": "device", "provenance": "hub"}
+    ]},
+    "xrf-v2": {"default": "official", "settings": [
+      {"id": "official", "kind": "predefined", "provenance": "official", "description": "Preserve 682 training and 171 testing sequences."},
+      {"id": "leave_one_subject_out", "kind": "group_holdout", "group_by": "subject", "provenance": "official"},
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.8, 0.1, 0.1]}
+    ]},
+    "xrf55": {"default": "official", "settings": [
+      {"id": "official", "kind": "trial_order", "provenance": "official", "group_by": "trial", "description": "First 14 repetitions train; last 6 test.", "source": "https://aiotgroup.github.io/XRF55/"},
+      {"id": "cross_subject", "kind": "group_holdout", "group_by": "subject", "provenance": "paper"},
+      {"id": "cross_environment", "kind": "group_holdout", "group_by": "environment", "provenance": "paper"},
+      {"id": "random", "kind": "random", "provenance": "hub", "ratios": [0.7, 0.15, 0.15]}
+    ]}
+  }
+}

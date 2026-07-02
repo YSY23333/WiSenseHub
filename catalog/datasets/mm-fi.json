@@ -1,0 +1,12 @@
+{
+  "id": "mm-fi", "name": "MM-Fi", "year": 2023,
+  "summary": "Synchronized WiFi, RGB-D, LiDAR, and mmWave data with action and pose annotations for daily and rehabilitation activities.",
+  "tasks": ["har", "pose", "multitask"], "modalities": ["WiFi CSI", "RGB-D", "LiDAR", "mmWave radar"],
+  "hardware": {"platform": "TP-Link N750 access points and synchronized sensor platform", "chipset": "Atheros CSI Tool", "wifi_standard": "802.11n", "band": "5 GHz, 40 MHz"},
+  "settings": {"environments": 4, "subjects": 40, "scenario": "Daily and rehabilitation actions in two rooms and four platform settings"},
+  "scale": {"sequences": 1080, "synchronized_frames": 320760, "activities": 27, "released_sample_rate_hz": 10},
+  "original": {"landing_page": "https://ntu-aiot-lab.github.io/mm-fi", "download_page": "https://github.com/ybhbingo/MMFi_dataset", "access": "application", "license": "Dataset agreement", "redistribution": "restricted", "formats": ["MAT", "NumPy", "PNG", "BIN"]},
+  "standardization": {"status": "adapter-ready", "profile": "native-10hz", "notes": "Do not upsample the released 10 Hz WiFi stream by default; retain 3×114 CSI dimensions."},
+  "sources": [{"type": "paper", "url": "https://arxiv.org/abs/2305.10345"}, {"type": "repository", "url": "https://github.com/ybhbingo/MMFi_dataset"}], "verified_at": "2026-06-28"
+}
+

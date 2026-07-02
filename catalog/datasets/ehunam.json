@@ -1,0 +1,12 @@
+{
+  "id": "ehunam", "name": "EHUNAM", "year": 2025,
+  "summary": "Multi-campaign WiFi CSI dataset for people counting, human activity, identity, appliance recognition, and industrial machine activity across days and environments.",
+  "tasks": ["har", "occupancy", "identity", "machine_sensing", "multitask"], "modalities": ["WiFi CSI"],
+  "hardware": {"platform": "Raspberry Pi 4 transmitter and multi-receiver arrays", "chipset": "Nexmon-compatible Broadcom", "wifi_standard": "802.11ac", "band": "5 GHz"},
+  "settings": {"environments": 8, "subjects": 21, "scenario": "Three campaigns over 23 days, including five human scenarios, appliances, and an industrial laboratory"},
+  "scale": {"measurement_days": 23, "campaigns": 3, "max_people_count": 8, "machines": 9},
+  "original": {"landing_page": "https://doi.org/10.6084/m9.figshare.28541225", "download_page": "https://doi.org/10.6084/m9.figshare.28541225", "access": "direct", "license": "CC BY 4.0", "redistribution": "allowed", "formats": ["MAT", "summary spreadsheet", "MATLAB preprocessing"]},
+  "standardization": {"status": "adapter-ready", "profile": "continuous-native", "notes": "Preserve campaign, day, environment, receiver, person-count, and machine-state domains for cross-domain evaluation."},
+  "sources": [{"type": "paper", "url": "https://doi.org/10.1038/s41597-025-06238-4"}, {"type": "data", "url": "https://doi.org/10.6084/m9.figshare.28541225"}], "verified_at": "2026-07-01"
+}
+

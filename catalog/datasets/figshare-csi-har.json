@@ -1,0 +1,12 @@
+{
+  "id": "figshare-csi-har", "name": "WiFi CSI HAR (Three Rooms)", "year": 2021,
+  "summary": "Packet-level CSI with activity intervals and person bounding-box labels collected across three rooms and multiple sessions.",
+  "tasks": ["har", "spatial_localization"], "modalities": ["WiFi CSI", "activity intervals", "person bounding boxes"],
+  "hardware": {"platform": "TP-Link TL-WDR4300 router", "chipset": "Atheros CSI Tool", "wifi_standard": "802.11n", "band": "5 GHz, 40 MHz"},
+  "settings": {"environments": 3, "subjects": 1, "scenario": "Walking, sitting, standing, lying, getting up/down, and no activity across rooms"},
+  "scale": {"activities": 7, "subcarriers": 114, "mimo": "2×2", "size_mb": 489},
+  "original": {"landing_page": "https://figshare.com/articles/dataset/14386892", "download_page": "https://figshare.com/articles/dataset/14386892", "access": "direct", "license": "CC BY 4.0", "redistribution": "allowed", "formats": ["CSV CSI", "CSV labels", "CSV bounding boxes"]},
+  "standardization": {"status": "adapter-ready", "profile": "continuous-native", "notes": "Preserve room and session hierarchy and convert interval labels into canonical temporal segments."},
+  "sources": [{"type": "data", "url": "https://figshare.com/articles/dataset/14386892"}, {"type": "repository", "url": "https://github.com/retsediv/WIFI_CSI_based_HAR"}], "verified_at": "2026-07-01"
+}
+

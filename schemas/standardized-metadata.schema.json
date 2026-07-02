@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wisensehub.github.io/schemas/standardized-metadata.schema.json",
+  "title": "WiSenseHub standardized sample sidecar",
+  "type": "object",
+  "required": ["schema_version", "dataset_id", "source_file", "source_sha256", "source_representation", "standard_representation", "shape", "sample_rate_hz", "power_unit", "transformations", "created_at", "tool"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "dataset_id": {"type": "string"},
+    "source_file": {"type": "string"},
+    "source_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "source_format": {"type": "string"},
+    "source_representation": {"enum": ["complex_csi", "amplitude_only", "amplitude_phase", "processed_amplitude", "processed_bvp", "raw_iq"]},
+    "standard_representation": {"type": "string"},
+    "shape": {"type": "array", "minItems": 3, "items": {"type": "integer", "minimum": 1}},
+    "sample_rate_hz": {"type": ["number", "null"], "exclusiveMinimum": 0},
+    "duration_s": {"type": ["number", "null"], "exclusiveMinimum": 0},
+    "time_unit": {"enum": ["s", "packet_index"]},
+    "time_axis": {"enum": ["timestamp_s", "packet_index"]},
+    "axis_order": {"type": "array", "items": {"type": "string"}},
+    "power_unit": {"type": "string"},
+    "valid_fraction": {"type": "number", "minimum": 0, "maximum": 1},
+    "transformations": {"type": "array", "items": {"type": "string"}},
+    "created_at": {"type": "string", "format": "date-time"},
+    "tool": {"type": "string"},
+    "warning": {"type": "string"},
+    "split": {"type": "string"},
+    "receivers_kept": {"type": "array", "items": {"type": "integer", "minimum": 0}},
+    "labels": {"type": "object"},
+    "segments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["start_seconds", "end_seconds", "label"],
+        "properties": {
+          "start_seconds": {"type": "number", "minimum": 0},
+          "end_seconds": {"type": "number", "exclusiveMinimum": 0},
+          "label": {"type": "string"},
+          "source_label": {"type": "string"}
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

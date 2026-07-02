@@ -1,0 +1,12 @@
+{
+  "id": "signfi", "name": "SignFi", "year": 2018,
+  "summary": "Fine-grained sign-language recognition dataset collected from WiFi CSI in laboratory and home environments.",
+  "tasks": ["gesture"], "modalities": ["WiFi CSI"],
+  "hardware": {"platform": "WiFi transmitter and receiver", "chipset": "Intel 5300", "wifi_standard": "802.11n", "band": "5 GHz"},
+  "settings": {"environments": 2, "subjects": 5, "scenario": "276 sign-language gestures in lab and home settings"},
+  "scale": {"samples_reported_by_csi_bench": 14300, "gesture_classes": 276, "approx_packets_per_gesture": 200},
+  "original": {"landing_page": "https://yongsen.github.io/SignFi/", "download_page": "https://yongsen.github.io/SignFi/", "access": "application", "license": "SignFi Dataset Terms of Use", "redistribution": "restricted", "formats": ["MAT complex CSI"]},
+  "standardization": {"status": "adapter-ready", "profile": "clip-native", "notes": "Access requires accepting dataset terms; preserve lab/home domain and user splits."},
+  "sources": [{"type": "project", "url": "https://yongsen.github.io/SignFi/"}, {"type": "paper", "url": "https://doi.org/10.1145/3191755"}], "verified_at": "2026-06-28"
+}
+

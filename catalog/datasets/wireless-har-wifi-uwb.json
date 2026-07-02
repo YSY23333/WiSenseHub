@@ -1,0 +1,12 @@
+{
+  "id": "wireless-har-wifi-uwb", "name": "Wireless Sensing HAR (WiFi + UWB)", "year": 2022,
+  "summary": "Multimodal human-activity dataset combining WiFi CSI across three rooms with UWB channel impulse responses.",
+  "tasks": ["har", "multitask"], "modalities": ["WiFi CSI", "UWB CIR"],
+  "hardware": {"platform": "WiFi CSI and commercial UWB sensing systems", "chipset": "Intel 5300 for WiFi subset", "wifi_standard": "802.11n", "band": null},
+  "settings": {"environments": 3, "subjects": null, "scenario": "Human activities across three WiFi rooms and one UWB room"},
+  "scale": {"size_gb": 7.97, "wifi_rooms": 3, "uwb_rooms": 1},
+  "original": {"landing_page": "https://figshare.com/articles/dataset/20444538", "download_page": "https://figshare.com/articles/dataset/20444538", "access": "direct", "license": "CC BY 4.0", "redistribution": "allowed", "formats": ["MAT", "dataset-specific RF files"]},
+  "standardization": {"status": "adapter-ready", "profile": "continuous-native", "notes": "Standardize WiFi independently while preserving synchronization and modality provenance when UWB is retained."},
+  "sources": [{"type": "data", "url": "https://figshare.com/articles/dataset/20444538"}], "verified_at": "2026-07-01"
+}
+

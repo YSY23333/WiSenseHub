@@ -1,0 +1,11 @@
+{
+  "id": "wiar", "name": "WiAR", "year": 2019,
+  "summary": "Public cross-environment WiFi activity and gesture dataset with sixteen actions performed by ten volunteers in three indoor environments.",
+  "tasks": ["har", "gesture"], "modalities": ["WiFi CSI", "RSSI"],
+  "hardware": {"platform": "Router and laptop receiver", "chipset": "Intel 5300", "wifi_standard": "802.11n", "band": null},
+  "settings": {"environments": 3, "subjects": 10, "scenario": "Empty room, meeting room, and office with activity and gesture classes"},
+  "scale": {"samples": 4800, "activities": 16, "trials_per_activity_per_subject": 50},
+  "original": {"landing_page": "https://doi.org/10.1109/ACCESS.2019.2947024", "download_page": null, "access": "unclear", "license": "Dataset license and current official download require confirmation", "redistribution": "unclear", "formats": ["CSI files", "RSSI"]},
+  "standardization": {"status": "adapter-ready", "profile": "clip-4s-100hz", "notes": "Intel 5300 beamforming-record parser is implemented from the official MATLAB/C reference; current release access still requires confirmation."},
+  "sources": [{"type": "paper", "url": "https://doi.org/10.1109/ACCESS.2019.2947024"}], "verified_at": "2026-06-28"
+}

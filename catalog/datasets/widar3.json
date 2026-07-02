@@ -1,0 +1,12 @@
+{
+  "id": "widar3", "name": "Widar3.0", "year": 2021,
+  "summary": "Large cross-domain gesture dataset with raw CSI and body-coordinate velocity profile representations across users, rooms, positions, and orientations.",
+  "tasks": ["gesture", "har"], "modalities": ["WiFi CSI", "body-coordinate velocity profile"],
+  "hardware": {"platform": "One transmitter and six receivers", "chipset": "Intel 5300", "wifi_standard": "802.11n", "band": "5 GHz"},
+  "settings": {"environments": 3, "subjects": 16, "scenario": "Gestures at multiple positions and orientations"},
+  "scale": {"samples_reported_by_csi_bench": 271100, "processed_gesture_samples_in_sensefi": 43652, "gesture_classes": 22},
+  "original": {"landing_page": "https://tns.thss.tsinghua.edu.cn/widar3.0/", "download_page": "https://tns.thss.tsinghua.edu.cn/widar3.0/", "access": "direct", "license": "Research use; verify project terms", "redistribution": "restricted", "formats": ["DAT", "MAT", "BVP"]},
+  "standardization": {"status": "adapter-ready", "profile": "clip-4s-100hz", "notes": "Expose raw CSI and BVP as separate representations; never label BVP as raw CSI."},
+  "sources": [{"type": "project", "url": "https://tns.thss.tsinghua.edu.cn/widar3.0/"}, {"type": "repository", "url": "https://github.com/xyanchen/WiFi-CSI-Sensing-Benchmark"}], "verified_at": "2026-06-28"
+}
+

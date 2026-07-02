@@ -1,0 +1,12 @@
+{
+  "id": "wimans", "name": "WiMANS", "year": 2024,
+  "summary": "Dual-band WiFi CSI and synchronized video for simultaneous activities, identities, locations, and occupancy from zero to five users.",
+  "tasks": ["har", "occupancy", "identity", "spatial_localization", "multitask"], "modalities": ["WiFi CSI", "video"],
+  "hardware": {"platform": "One transmitter-receiver pair", "chipset": "Intel 5300", "wifi_standard": "802.11n", "band": "2.4/5 GHz"},
+  "settings": {"environments": 3, "subjects": 6, "scenario": "0–5 simultaneous users performing activities at labeled locations"},
+  "scale": {"samples": 11286, "hours": 9.4, "activities": 9, "nominal_packets_per_sample": 3000},
+  "original": {"landing_page": "https://github.com/huangshk/WiMANS", "download_page": "https://www.kaggle.com/datasets/shuokanghuang/wimans", "access": "account", "license": "Academic research terms; verify release", "redistribution": "restricted", "formats": ["MAT", "video", "CSV annotations"]},
+  "standardization": {"status": "adapter-ready", "profile": "clip-3s-100hz", "notes": "Represent packet loss explicitly; preserve dual-band identity and multi-label annotations."},
+  "sources": [{"type": "paper", "url": "https://arxiv.org/abs/2402.09430"}, {"type": "repository", "url": "https://github.com/huangshk/WiMANS"}], "verified_at": "2026-06-28"
+}
+

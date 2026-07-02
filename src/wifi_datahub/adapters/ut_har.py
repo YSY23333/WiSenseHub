@@ -1,0 +1,73 @@
+from __future__ import annotations
+
+import hashlib
+import json
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Tuple
+
+import numpy as np
+
+
+CLASS_NAMES = ["lie_down", "fall", "walk", "pickup", "run", "sit_down", "stand_up"]
+
+
+def normalize_ut_har_arrays(data: np.ndarray, labels: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
+    """Normalize SenseFi UT-HAR amplitude to [sample, packet, link, subcarrier]."""
+    data = np.asarray(data)
+    if data.ndim == 3 and data.shape[1:] == (250, 90):
+        canonical = data.reshape(data.shape[0], 250, 3, 30)
+    elif data.ndim == 4 and data.shape[1:] == (250, 3, 30):
+        canonical = data
+    elif data.ndim == 4 and data.shape[1:] == (3, 30, 250):
+        canonical = data.transpose(0, 3, 1, 2)
+    else:
+        raise ValueError(f"unsupported UT-HAR shape {data.shape}")
+    labels = np.asarray(labels).reshape(-1).astype(np.int16)
+    if labels.size != canonical.shape[0]:
+        raise ValueError("UT-HAR data and label counts differ")
+    return canonical.astype(np.float32), labels
+
+
+def convert_ut_har_npz(input_path: Path, output_path: Path) -> Path:
+    source = np.load(input_path, allow_pickle=False)
+    if isinstance(source, np.lib.npyio.NpzFile):
+        data_key = next((key for key in ("data", "x", "amplitude") if key in source.files), None)
+        label_key = next((key for key in ("label", "labels", "y") if key in source.files), None)
+        if data_key is None or label_key is None:
+            raise ValueError("UT-HAR NPZ requires data/x/amplitude and label/labels/y arrays")
+        data, label = source[data_key], source[label_key]
+    else:
+        # SenseFi distributes NumPy payloads with a .csv extension under
+        # UT_HAR/data and matching files under UT_HAR/label.
+        parts = list(input_path.parts)
+        try:
+            data_index = len(parts) - 1 - parts[::-1].index("data")
+        except ValueError as exc:
+            raise ValueError("UT-HAR array file must be in a data/ directory") from exc
+        label_path = Path(*parts[:data_index], "label", *parts[data_index + 1:])
+        if not label_path.exists():
+            raise ValueError(f"matching UT-HAR label file not found: {label_path}")
+        data, label = source, np.load(label_path, allow_pickle=False)
+    amplitude, labels = normalize_ut_har_arrays(data, label)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(
+        output_path,
+        packet_index=np.arange(amplitude.shape[1], dtype=np.int32),
+        amplitude=amplitude,
+        valid_mask=np.ones(amplitude.shape[:2], dtype=bool),
+        activity_label=labels,
+    )
+    sidecar = {
+        "schema_version": "1.0", "dataset_id": "ut-har", "source_file": input_path.name,
+        "source_sha256": hashlib.sha256(input_path.read_bytes()).hexdigest(),
+        "source_representation": "processed_amplitude", "standard_representation": "amplitude",
+        "shape": list(amplitude.shape), "axis_order": ["sample", "packet", "link", "subcarrier"],
+        "sample_rate_hz": None, "time_axis": "packet_index", "power_unit": "source_amplitude_arbitrary_unit",
+        "labels": {"activity": CLASS_NAMES},
+        "transformations": ["reshape 90 channels to 3 links × 30 subcarriers", "cast float32"],
+        "created_at": datetime.now(timezone.utc).isoformat(), "tool": "wisensehub-0.5.0"
+    }
+    sidecar_path = output_path.with_suffix(".json")
+    sidecar_path.write_text(json.dumps(sidecar, indent=2) + "\n", encoding="utf-8")
+    return sidecar_path

@@ -1,0 +1,10 @@
+{
+  "sequence_id": "xrfv2-example-001",
+  "task": "tad_tal",
+  "time_unit": "s",
+  "segments": [
+    {"start_seconds": 4.2, "end_seconds": 10.8, "label": "walking", "source_label": "walk"},
+    {"start_seconds": 15.1, "end_seconds": 22.6, "label": "sitting_down", "source_label": "sit down"}
+  ],
+  "note": "Illustrative annotation structure; not a real XRF V2 sample."
+}

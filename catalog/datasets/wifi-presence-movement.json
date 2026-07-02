@@ -1,0 +1,11 @@
+{
+  "id": "wifi-presence-movement", "name": "WiFi CSI and RSS Presence/Movement", "year": 2020,
+  "summary": "Long-form antenna-wise CSI and RSS collection with annotations for detecting human presence and movement.",
+  "tasks": ["occupancy", "har"], "modalities": ["WiFi CSI", "RSS"],
+  "hardware": {"platform": "Intel CSI Tool capture system", "chipset": "Intel 5300", "wifi_standard": "802.11n", "band": null},
+  "settings": {"environments": null, "subjects": null, "scenario": "Ambient presence and movement monitoring over multiple capture files"},
+  "scale": {"size_gb": 28, "example_csi_file_mb": 616},
+  "original": {"landing_page": "https://zenodo.org/records/3676058", "download_page": "https://zenodo.org/records/3676058", "access": "direct", "license": "Check Zenodo record", "redistribution": "unclear", "formats": ["Gzipped JSON CSI", "Gzipped CSV RSS", "CSV annotations"]},
+  "standardization": {"status": "adapter-ready", "profile": "continuous-native", "notes": "Align CSI, RSS, and annotation clocks; retain capture and antenna identity."},
+  "sources": [{"type": "data", "url": "https://zenodo.org/records/3676058"}], "verified_at": "2026-07-01"
+}

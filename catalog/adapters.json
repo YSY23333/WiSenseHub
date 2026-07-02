@@ -1,0 +1,157 @@
+{
+  "schema_version": "1.1",
+  "datasets": {
+    "aril": {
+      "handler": "aril",
+      "implementation": "reference-implemented",
+      "patterns": ["**/*_data_split_amp.mat", "**/*data*amp*.mat"],
+      "official_reference": "https://github.com/geekfeiw/ARIL/blob/master/train.py"
+    },
+    "csi-bench": {
+      "handler": "official-profile",
+      "implementation": "reference-implemented",
+      "patterns": ["**/*.mat", "**/*.h5", "**/*.hdf5"],
+      "official_reference": "https://github.com/guozhen-jenn-zhu/CSI-Bench-Real-WiFi-Sensing-Benchmark/blob/main/data/datasets/csi/supervised.py"
+    },
+    "csida": {
+      "handler": "official-profile",
+      "implementation": "reference-implemented",
+      "patterns": ["**/csi_data_amp"],
+      "official_reference": "https://github.com/Zhang-xie/WiGr/blob/master/DataSet/CSIDA.py",
+      "accept_directories": true
+    },
+    "ehunam": {
+      "handler": "official-profile",
+      "implementation": "reference-implemented",
+      "patterns": ["**/*.mat"],
+      "official_reference": "https://github.com/GuillermoDiazSM/EHUNAM-dataset/blob/main/Subcarrier.m"
+    },
+    "exposing-csi": {
+      "handler": "official-profile",
+      "implementation": "reference-implemented",
+      "patterns": ["**/*.mat"],
+      "official_reference": "https://github.com/ansresearch/SHARP/blob/main/Python_code/CSI_phase_sanitization_signal_preprocessing.py"
+    },
+    "figshare-csi-har": {
+      "handler": "official-profile",
+      "implementation": "reference-implemented",
+      "patterns": ["**/data.csv"],
+      "official_reference": "https://github.com/Retsediv/WIFI_CSI_based_HAR/blob/master/model/dataset.py"
+    },
+    "glasgow-activity-localization": {
+      "handler": "official-profile",
+      "implementation": "schema-implemented",
+      "patterns": ["**/*.csv"],
+      "official_reference": "https://researchdata.gla.ac.uk/1283/4/ReadMe_Non-invasive_Localization_using_SDR.docx"
+    },
+    "glasgow-multiuser": {
+      "handler": "official-profile",
+      "implementation": "schema-implemented",
+      "patterns": ["**/*.csv"],
+      "official_reference": "https://researchdata.gla.ac.uk/1151/2/ReadMe.pdf"
+    },
+    "mm-fi": {
+      "handler": "official-profile",
+      "implementation": "reference-implemented",
+      "patterns": ["**/wifi-csi"],
+      "official_reference": "https://github.com/ybhbingo/MMFi_dataset/blob/main/mmfi_lib/mmfi.py",
+      "accept_directories": true
+    },
+    "nist-breathesmart": {
+      "handler": "official-profile",
+      "implementation": "reference-implemented",
+      "patterns": ["**/*_csi_real_log.csv"],
+      "official_reference": "https://data.nist.gov/od/ds/mds2-2963/ReadMe%20v2.docx"
+    },
+    "ntu-fi": {
+      "handler": "official-profile",
+      "implementation": "reference-implemented",
+      "patterns": ["**/train_amp/**/*.mat", "**/test_amp/**/*.mat", "**/train_amp/*.mat", "**/test_amp/*.mat"],
+      "official_reference": "https://github.com/xyanchen/WiFi-CSI-Sensing-Benchmark/blob/main/dataset.py"
+    },
+    "operanet": {
+      "handler": "official-profile",
+      "implementation": "reference-implemented",
+      "patterns": ["**/*.mat"],
+      "official_reference": "https://www.nature.com/articles/s41597-022-01573-2#Sec11"
+    },
+    "signfi": {
+      "handler": "official-profile",
+      "implementation": "reference-implemented",
+      "patterns": ["**/dataset_*.mat"],
+      "official_reference": "https://github.com/yongsen/SignFi/blob/master/README.md"
+    },
+    "ut-har": {
+      "handler": "ut-har",
+      "implementation": "reference-implemented",
+      "patterns": ["**/*.npz", "**/data/*.csv"],
+      "official_reference": "https://github.com/xyanchen/WiFi-CSI-Sensing-Benchmark/blob/main/dataset.py"
+    },
+    "wallhack18k": {
+      "handler": "wallhack18k",
+      "implementation": "reference-implemented",
+      "patterns": ["**/*.csv"],
+      "official_reference": "https://zenodo.org/records/8188999"
+    },
+    "wiar": {
+      "handler": "wiar-intel5300",
+      "implementation": "reference-implemented",
+      "patterns": ["**/*.dat"],
+      "official_reference": "https://github.com/linteresa/WiAR/blob/master/codes/read_bf_file.m"
+    },
+    "widar3": {
+      "handler": "official-profile",
+      "implementation": "reference-implemented",
+      "patterns": ["**/Widardata/train/**/*.csv", "**/Widardata/test/**/*.csv", "**/train/**/*.csv", "**/test/**/*.csv"],
+      "official_reference": "https://github.com/xyanchen/WiFi-CSI-Sensing-Benchmark/blob/main/dataset.py"
+    },
+    "wifi-80mhz": {
+      "handler": "official-profile",
+      "implementation": "reference-implemented",
+      "patterns": ["**/*.mat"],
+      "official_reference": "https://github.com/francescamen/SHARP/blob/main/Python_code/CSI_phase_sanitization_signal_preprocessing.py"
+    },
+    "wifi-presence-movement": {
+      "handler": "official-profile",
+      "implementation": "reference-implemented",
+      "patterns": ["**/*.json.gz", "**/*csi*.json", "**/*CSI*.json"],
+      "official_reference": "https://zenodo.org/records/3676058/files/README.txt"
+    },
+    "wifi-tad": {
+      "handler": "official-profile",
+      "implementation": "reference-implemented",
+      "patterns": ["**/smartwifi/**/*.npy", "**/validation_npy/*.npy", "**/test_npy/*.npy"],
+      "official_reference": "https://github.com/AVC2-UESTC/WiFiTAD/blob/main/TAD/dataset/load_csi.py"
+    },
+    "wimans": {
+      "handler": "official-profile",
+      "implementation": "reference-implemented",
+      "patterns": ["**/wifi_csi/amp/*.npy", "**/wifi_csi/mat/*.mat"],
+      "official_reference": "https://github.com/huangshk/WiMANS/blob/main/benchmark/wifi_csi/load_data.py"
+    },
+    "wipe-fall": {
+      "handler": "official-profile",
+      "implementation": "schema-implemented",
+      "patterns": ["**/*.csv"],
+      "official_reference": "https://researchdata.gla.ac.uk/1623/1/ReadMe.docx"
+    },
+    "wireless-har-wifi-uwb": {
+      "handler": "official-profile",
+      "implementation": "schema-implemented",
+      "patterns": ["**/WiFi_CSI/**/*.csv", "**/WiFi_CSI/**/*.mat", "**/WiFi_CSI/**/*.h5", "**/WiFi_CSI/**/*.hdf5", "**/WiFi_CSI/**/*.npz", "**/WiFi_CSI/**/*.npy"],
+      "official_reference": "https://figshare.com/articles/dataset/20444538"
+    },
+    "xrf-v2": {
+      "handler": "xrf-v2",
+      "implementation": "reference-implemented",
+      "patterns": ["**/*.h5", "**/*.hdf5"],
+      "official_reference": "https://github.com/aiotgroup/XRFV2/blob/main/dataset/modality/wifi.py"
+    },
+    "xrf55": {
+      "handler": "official-profile",
+      "implementation": "reference-implemented",
+      "patterns": ["**/Raw_dataset/WiFi/*.npy", "**/XRF_dataset/train_data/WiFi/*.npy", "**/XRF_dataset/test_data/WiFi/*.npy", "**/train_data/WiFi/*.npy", "**/test_data/WiFi/*.npy"],
+      "official_reference": "https://github.com/aiotgroup/XRF55-repo/blob/main/XRFDataset.py"
+    }
+  }
+}

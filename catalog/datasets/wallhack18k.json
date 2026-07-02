@@ -1,0 +1,12 @@
+{
+  "id": "wallhack18k", "name": "Wallhack1.8k", "year": 2024,
+  "summary": "Open raw WiFi packet and spectrogram dataset for presence and activity recognition in line-of-sight and through-wall settings.",
+  "tasks": ["har", "occupancy"], "modalities": ["WiFi CSI", "CSI amplitude spectrogram"],
+  "hardware": {"platform": "Two WiFi systems with BQ and PIFA antennas", "chipset": "Espressif-compatible CSI format", "wifi_standard": "802.11n", "band": "2.4 GHz"},
+  "settings": {"environments": 6, "subjects": null, "scenario": "LoS and NLoS/through-wall; no presence, walking, walking plus arm waving"},
+  "scale": {"samples": 1806, "classes": 3, "nominal_sample_rate_hz": 100, "window_seconds": 4},
+  "original": {"landing_page": "https://zenodo.org/records/8188999", "download_page": "https://zenodo.org/records/8188999", "access": "direct", "license": "Open Zenodo record; verify file license metadata", "redistribution": "unclear", "formats": ["CSV raw I/Q", "PNG spectrogram", "CSV labels"]},
+  "standardization": {"status": "adapter-ready", "profile": "clip-4s-100hz", "notes": "Parse interleaved imaginary/real values, select documented L-LTF or HT-LTF subcarriers, and retain scenario/antenna labels."},
+  "sources": [{"type": "data", "url": "https://zenodo.org/records/8188999"}], "verified_at": "2026-06-28"
+}
+

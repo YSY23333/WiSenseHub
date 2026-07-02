@@ -1,0 +1,12 @@
+{
+  "id": "glasgow-multiuser", "name": "5G-enabled Multi-user Presence and Activity", "year": 2021,
+  "summary": "Open SDR-based wireless CSI dataset covering sixteen combinations of occupancy and simultaneous activities for assisted living.",
+  "tasks": ["occupancy", "har", "multitask"], "modalities": ["Wireless CSI amplitude"],
+  "hardware": {"platform": "Two USRP X300/X310 software-defined radios", "chipset": "USRP", "wifi_standard": "Custom OFDM rather than commodity WiFi", "band": "3.75 GHz"},
+  "settings": {"environments": 1, "subjects": 4, "scenario": "Empty room and activity combinations with up to four people"},
+  "scale": {"samples": 1777, "classes": 16, "archive_mb": 843},
+  "original": {"landing_page": "https://researchdata.gla.ac.uk/1151/", "download_page": "https://researchdata.gla.ac.uk/1151/", "access": "direct", "license": "CC BY 4.0", "redistribution": "allowed", "formats": ["CSV", "7z", "PDF"]},
+  "standardization": {"status": "adapter-ready", "profile": "clip-3s-100hz", "notes": "Tag as SDR-OFDM CSI, not commodity WiFi CSI, while sharing the canonical tensor representation."},
+  "sources": [{"type": "data", "url": "https://researchdata.gla.ac.uk/1151/"}], "verified_at": "2026-06-28"
+}
+

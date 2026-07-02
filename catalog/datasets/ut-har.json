@@ -1,0 +1,11 @@
+{
+  "id": "ut-har", "name": "UT-HAR", "year": 2017,
+  "summary": "Widely used seven-class clip-level WiFi CSI benchmark containing daily activities and falls.",
+  "tasks": ["har", "fall"], "modalities": ["WiFi CSI amplitude"],
+  "hardware": {"platform": "Laptop CSI receiver", "chipset": "Intel 5300", "wifi_standard": "802.11n", "band": "5 GHz"},
+  "settings": {"environments": 1, "subjects": null, "scenario": "Controlled single-person indoor activities"},
+  "scale": {"samples": 4973, "classes": 7, "shape": "250×90"},
+  "original": {"landing_page": "https://github.com/ermongroup/Wifi_Activity_Recognition", "download_page": "https://github.com/xyanchen/WiFi-CSI-Sensing-Benchmark", "access": "account", "license": "Dataset license not clearly stated", "redistribution": "unclear", "formats": ["CSV processed amplitude"]},
+  "standardization": {"status": "adapter-ready", "profile": "clip-250-packets", "notes": "Shape adapter converts processed amplitude to [sample, packet, link, subcarrier] without inventing phase or timestamps."},
+  "sources": [{"type": "repository", "url": "https://github.com/ermongroup/Wifi_Activity_Recognition"}, {"type": "repository", "url": "https://github.com/xyanchen/WiFi-CSI-Sensing-Benchmark"}], "verified_at": "2026-06-28"
+}

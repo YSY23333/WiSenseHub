@@ -1,0 +1,12 @@
+{
+  "id": "xrf55", "name": "XRF55", "year": 2024,
+  "summary": "Large multimodal dataset of 55 segmented indoor actions for cross-modal and cross-domain human activity recognition.",
+  "tasks": ["har", "multitask"], "modalities": ["WiFi CSI", "mmWave radar", "RFID", "RGB-D video"],
+  "hardware": {"platform": "WiFi transmitter and three receivers plus RF sensors", "chipset": "Intel 5300", "wifi_standard": "802.11n", "band": null},
+  "settings": {"environments": 4, "subjects": 39, "scenario": "Segmented indoor actions across people and scenes"},
+  "scale": {"samples": 42900, "activities": 55},
+  "original": {"landing_page": "https://github.com/aiotgroup/XRF55-repo", "download_page": null, "access": "unclear", "license": "Check repository release", "redistribution": "unclear", "formats": ["DAT", "MAT", "NumPy"]},
+  "standardization": {"status": "adapter-ready", "profile": "clip-4s-100hz", "notes": "Keep XRF55 separate from XRF V2; flatten three WiFi receivers into a documented link dimension."},
+  "sources": [{"type": "repository", "url": "https://github.com/aiotgroup/XRF55-repo"}], "verified_at": "2026-06-28"
+}
+

@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "tasks": [
+    {"id": "har", "name": "Human Activity Recognition", "description": "Classify a pre-segmented CSI clip into an activity."},
+    {"id": "tad_tal", "name": "Temporal Activity Detection / Localization", "description": "Find activity classes and their temporal boundaries in continuous, untrimmed CSI."},
+    {"id": "fall", "name": "Fall Detection and Risk", "description": "Detect falls or estimate fall risk."},
+    {"id": "vital_sign", "name": "Vital-sign Monitoring", "description": "Estimate respiration, heartbeat, or related physiological signals."},
+    {"id": "occupancy", "name": "People Counting and Occupancy", "description": "Estimate presence or the number of people."},
+    {"id": "gesture", "name": "Gesture and Sign Language", "description": "Recognize fine-grained hand, arm, or sign-language gestures."},
+    {"id": "identity", "name": "Human Identification", "description": "Identify a person from gait or body-induced CSI."},
+    {"id": "spatial_localization", "name": "Indoor Spatial Localization", "description": "Estimate a room, zone, or physical position; distinct from TAL."},
+    {"id": "pose", "name": "Pose Estimation", "description": "Recover body pose or keypoints from WiFi signals."},
+    {"id": "motion_source", "name": "Motion-source Recognition", "description": "Distinguish humans, pets, fans, robots, and other moving sources."},
+    {"id": "multitask", "name": "Multi-task and Multimodal", "description": "Joint labels or synchronized sensing modalities."},
+    {"id": "machine_sensing", "name": "Machine and Industrial Sensing", "description": "Recognize machines, operating states, and human-machine activity in industrial settings."}
+  ]
+}

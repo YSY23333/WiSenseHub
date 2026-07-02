@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "downloads": {
+    "wallhack18k": [
+      {
+        "name": "wallhack1.8k.zip",
+        "url": "https://zenodo.org/api/records/8188999/files/wallhack1.8k.zip/content",
+        "bytes": 135133863,
+        "checksum": "md5:57a0b9baa3532e1172b25d756536071a"
+      }
+    ],
+    "nist-breathesmart": [
+      {
+        "name": "BreatheSmartv2.zip",
+        "url": "https://data.nist.gov/od/ds/ark:/88434/mds2-2963/BreatheSmartv2.zip",
+        "bytes": 212364941,
+        "checksum": null
+      },
+      {
+        "name": "ReadMe-v2.docx",
+        "url": "https://data.nist.gov/od/ds/mds2-2963/ReadMe%20v2.docx",
+        "bytes": null,
+        "checksum": null
+      }
+    ]
+  }
+}
+
