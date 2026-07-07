@@ -192,7 +192,7 @@ def convert_generic(input_path: Path, output_path: Path, dataset_id: str) -> Pat
         "shape": list(output["amplitude"].shape), "axis_order": axes,
         "sample_rate_hz": None, "time_axis": "packet_index", "power_unit": "source_amplitude_arbitrary_unit",
         "transformations": ["canonicalize to sample/time/link/subcarrier", "cast float32"],
-        "created_at": datetime.now(timezone.utc).isoformat(), "tool": "wisensehub-0.5.0",
+        "created_at": datetime.now(timezone.utc).isoformat(), "tool": "wisensehub-0.6.0",
         "warning": "Generic adapter preserves values and axes conservatively; dataset-specific calibration is not inferred."
     }
     sidecar_path = output_path.with_suffix(".json")

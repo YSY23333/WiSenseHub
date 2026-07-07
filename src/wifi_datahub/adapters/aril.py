@@ -78,7 +78,7 @@ def convert_aril_mat(input_path: Path, output_path: Path, split: str) -> Path:
         "labels": {"activity": ACTIVITY_NAMES, "location": "integer 0-15"},
         "transformations": ["transpose channel and packet axes", "insert link axis", "cast float32"],
         "created_at": datetime.now(timezone.utc).isoformat(),
-        "tool": "wisensehub-0.5.0",
+        "tool": "wisensehub-0.6.0",
     }
     sidecar_path = output_path.with_suffix(".json")
     sidecar_path.write_text(json.dumps(sidecar, indent=2) + "\n", encoding="utf-8")

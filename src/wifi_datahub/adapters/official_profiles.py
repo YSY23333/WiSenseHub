@@ -82,7 +82,7 @@ def _save(
         "standard_representation": primary, "shape": list(value.shape), "axis_order": axes,
         "sample_rate_hz": sample_rate_hz, "time_axis": "packet_index", "power_unit": power_unit,
         "transformations": transformations, "created_at": datetime.now(timezone.utc).isoformat(),
-        "tool": "wisensehub-0.5.0",
+        "tool": "wisensehub-0.6.0",
     }
     sidecar_path = output_path.with_suffix(".json")
     sidecar_path.write_text(json.dumps(sidecar, indent=2) + "\n", encoding="utf-8")

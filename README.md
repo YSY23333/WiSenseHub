@@ -54,6 +54,31 @@ python -m wifi_datahub prepare xrf-v2 --setting official --data-root data
 
 Use `--limit 5` for a quick trial and `--force` to rebuild existing outputs.
 The manifest records every converted, skipped, or failed source file.
+
+When a model needs fixed-size tensors, ask `prepare` to derive an additional
+standard view while preserving the native standardized file:
+
+```bash
+python -m wifi_datahub prepare ut-har \
+  --setting official \
+  --data-root data \
+  --target-length 128 \
+  --layout link-subcarrier
+
+python -m wifi_datahub prepare wifi-presence-movement \
+  --setting random \
+  --data-root data \
+  --target-rate 100 \
+  --duration 4 \
+  --interpolation linear
+```
+
+Derived views are written to `data/<dataset-id>/standardized/views/`. Supported
+view options are `--target-rate`, `--duration`, `--target-length`,
+`--interpolation {none,nearest,linear}`, `--layout {canonical,flat,link-subcarrier}`,
+`--links`, and `--subcarriers`. The native NPZ remains in `standardized/`; the
+manifest records both paths.
+
 All 25 catalog entries have a dataset-aware converter. Twenty-one adapters
 follow an official loader or preprocessing reference; four follow a documented
 release schema where no public preprocessing implementation was available.
@@ -64,6 +89,8 @@ See the [adapter matrix](docs/adapters.md) and [split settings](docs/splits.md).
 The website also provides one concrete source-layout and conversion walkthrough
 for every catalog dataset; these examples are maintained in
 `catalog/examples.json` and validated with the rest of the catalog.
+See [known limitations](docs/known-limitations.md) for the verification
+maturity model and dataset licensing boundaries.
 
 Run the standardization demonstration:
 

@@ -70,7 +70,7 @@ def convert_ut_har_npz(input_path: Path, output_path: Path) -> Path:
         "sample_rate_hz": None, "time_axis": "packet_index", "power_unit": "source_amplitude_arbitrary_unit",
         "labels": {"activity": CLASS_NAMES},
         "transformations": ["reshape 90 channels to 3 links × 30 subcarriers", "cast float32"],
-        "created_at": datetime.now(timezone.utc).isoformat(), "tool": "wisensehub-0.5.0"
+        "created_at": datetime.now(timezone.utc).isoformat(), "tool": "wisensehub-0.6.0"
     }
     sidecar_path = output_path.with_suffix(".json")
     sidecar_path.write_text(json.dumps(sidecar, indent=2) + "\n", encoding="utf-8")

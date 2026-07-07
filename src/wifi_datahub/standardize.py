@@ -112,7 +112,7 @@ def standardize_csv(
         "valid_fraction": float(np.mean(arrays["valid_mask"])),
         "transformations": ["sort timestamps", "drop duplicate timestamps", "linear interpolation of real/imag", "fixed interval crop/pad", "relative-power conversion"],
         "created_at": datetime.now(timezone.utc).isoformat(),
-        "tool": "wisensehub-0.5.0",
+        "tool": "wisensehub-0.6.0",
     }
     sidecar = output_path.with_suffix(".json")
     sidecar.write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")

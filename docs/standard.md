@@ -31,6 +31,36 @@ their documented axes rather than being mislabeled as raw CSI.
 `L` is the flattened transmit-receive link dimension and `S` is subcarrier.
 Original antenna dimensions remain in the JSON sidecar.
 
+## Native files and derived views
+
+Dataset adapters first write a native standardized file under
+`data/<dataset-id>/standardized/`. Native files preserve the official release as
+closely as possible after axis naming, dtype normalization, and provenance
+capture.
+
+For model input, users may request derived views:
+
+```bash
+wisensehub prepare <dataset-id> \
+  --target-rate 100 \
+  --duration 4 \
+  --interpolation linear \
+  --layout link-subcarrier
+```
+
+Derived views are stored under `standardized/views/` and keep a `derived_from`
+pointer to the native NPZ. Supported policies are:
+
+| Option | Purpose |
+|---|---|
+| `--target-rate` | Resample a timestamped or rate-known sequence to a fixed Hz |
+| `--duration` | Crop/pad/resample to a fixed time interval |
+| `--target-length` | Force an exact number of time steps when seconds are unknown |
+| `--interpolation` | Choose `none`, `nearest`, or `linear` |
+| `--layout canonical` | Keep `[T,L,S]` or `[N,T,L,S]` |
+| `--layout link-subcarrier` | Flatten link/subcarrier axes to `[T,F]` or `[N,T,F]` |
+| `--links`, `--subcarriers` | Validate expected channel dimensions before view export |
+
 ## Time and sampling
 
 - Default clip profile: 4 seconds at 100 Hz (`T=400`).

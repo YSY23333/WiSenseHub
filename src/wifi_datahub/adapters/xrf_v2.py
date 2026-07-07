@@ -58,7 +58,7 @@ def convert_xrf_v2_h5(input_path: Path, output_path: Path, receivers: Optional[S
         "receivers_kept": kept,
         "transformations": ["select receivers", "flatten receiver and channel into link", "cast float32"],
         "created_at": datetime.now(timezone.utc).isoformat(),
-        "tool": "wisensehub-0.5.0"
+        "tool": "wisensehub-0.6.0"
     }
     sidecar_path = output_path.with_suffix(".json")
     sidecar_path.write_text(json.dumps(sidecar, indent=2) + "\n", encoding="utf-8")

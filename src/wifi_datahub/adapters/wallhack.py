@@ -78,7 +78,7 @@ def convert_wallhack_csv(input_path: Path, output_path: Path, include_ht_ltf: bo
         "power_unit": "dB_relative_to_median_valid_sample_power", "valid_fraction": 1.0,
         "labels": {"class": labels[0] if labels else None},
         "transformations": ["parse interleaved imaginary/real", "select documented L-LTF/HT-LTF subcarriers", "relative-power conversion"],
-        "created_at": datetime.now(timezone.utc).isoformat(), "tool": "wisensehub-0.5.0"
+        "created_at": datetime.now(timezone.utc).isoformat(), "tool": "wisensehub-0.6.0"
     }
     sidecar_path = output_path.with_suffix(".json")
     sidecar_path.write_text(json.dumps(sidecar, indent=2) + "\n", encoding="utf-8")

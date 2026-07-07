@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.6.0 — 2026-07-07
+
+- Added optional `prepare` derived views with `--target-rate`, `--duration`,
+  `--target-length`, `--interpolation`, `--layout`, `--links`, and
+  `--subcarriers`.
+- Preserved native standardized NPZ files while writing fixed-size model views
+  under `standardized/views/`.
+- Added view regression tests and dataset-page output previews.
+- Documented adapter maturity, licensing boundaries, and known limitations.
+
 ## 0.5.0 — 2026-07-01
 
 - Verified the UT-HAR adapter against the official SenseFi test split and fixed

@@ -18,6 +18,7 @@ from wifi_datahub.prepare import prepare_dataset
 from wifi_datahub.prepare import registered_datasets
 from wifi_datahub.catalog import load_datasets
 from wifi_datahub.splits import generate_split
+from wifi_datahub.views import ViewOptions, create_standard_view
 from wifi_datahub.adapters.official_profiles import (
     convert_csi_bench_mat, convert_mmfi_directory, convert_ntu_fi_mat,
     convert_signfi_mat, convert_three_rooms_directory, convert_widar_csv,
@@ -111,6 +112,45 @@ class StandardizeTests(unittest.TestCase):
             output = root / "ut-har" / "standardized" / "processed.npz"
             loaded = np.load(output)
             self.assertEqual(loaded["amplitude"].shape, (2, 250, 3, 30))
+
+    def test_standard_view_target_length_and_flat_layout(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "native.npz"
+            np.savez(
+                source,
+                amplitude=np.arange(2 * 4 * 3 * 2, dtype=np.float32).reshape(2, 4, 3, 2),
+                valid_mask=np.ones((2, 4), dtype=bool),
+                packet_index=np.arange(4, dtype=np.int32),
+            )
+            source.with_suffix(".json").write_text(json.dumps({
+                "dataset_id": "synthetic", "standard_representation": "amplitude",
+                "shape": [2, 4, 3, 2], "axis_order": ["sample", "time", "link", "subcarrier"],
+                "sample_rate_hz": 4.0, "transformations": [],
+            }), encoding="utf-8")
+            output = root / "view.npz"
+            create_standard_view(source, output, ViewOptions(target_length=8, layout="link-subcarrier", links=3, subcarriers=2))
+            loaded = np.load(output)
+            self.assertEqual(loaded["amplitude"].shape, (2, 8, 6))
+            self.assertEqual(loaded["valid_mask"].shape, (2, 8))
+            meta = json.loads(output.with_suffix(".json").read_text(encoding="utf-8"))
+            self.assertEqual(meta["axis_order"], ["sample", "time", "feature"])
+
+    def test_prepare_can_emit_derived_view(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "ut-har" / "original" / "processed.npz"
+            source.parent.mkdir(parents=True)
+            np.savez(source, data=np.zeros((2, 250, 90)), label=np.asarray([0, 1]))
+            summary = prepare_dataset(
+                "ut-har", root, setting="random",
+                view_options=ViewOptions(target_length=128, layout="link-subcarrier"),
+            )
+            self.assertEqual(summary["converted"], 1)
+            output = root / "ut-har" / "standardized" / "views" / "processed.npz"
+            self.assertTrue(output.exists())
+            self.assertEqual(np.load(output)["amplitude"].shape, (2, 128, 90))
+            self.assertTrue(summary["records"][0]["native_output"].endswith("standardized/processed.npz"))
 
     def test_ut_har_official_sensefi_x_y_filename_pair(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -104,7 +104,7 @@ def convert_wiar_dat(input_path: Path, output_path: Path) -> Path:
         "sample_rate_hz": 30.0, "time_axis": "timestamp_s", "time_unit": "s",
         "power_unit": "source_csi_arbitrary_unit",
         "transformations": ["port official read_bf_file/read_bfee bit parser", "apply receive-antenna permutation", "flatten tx/rx into link"],
-        "created_at": datetime.now(timezone.utc).isoformat(), "tool": "wisensehub-0.5.0",
+        "created_at": datetime.now(timezone.utc).isoformat(), "tool": "wisensehub-0.6.0",
     }
     sidecar_path = output_path.with_suffix(".json")
     sidecar_path.write_text(json.dumps(sidecar, indent=2) + "\n", encoding="utf-8")

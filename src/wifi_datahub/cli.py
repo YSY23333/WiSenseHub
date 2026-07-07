@@ -11,6 +11,7 @@ from .quality import write_quality_report
 from .prepare import prepare_dataset, registered_datasets
 from .registry import load_adapter_registry, load_split_registry
 from .standardize import standardize_csv
+from .views import ViewOptions
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -50,6 +51,14 @@ def build_parser() -> argparse.ArgumentParser:
     prepare.add_argument("--seed", type=int, default=42)
     prepare.add_argument("--ratios", type=float, nargs=3, metavar=("TRAIN", "VAL", "TEST"))
     prepare.add_argument("--holdout", nargs="+", help="Group values assigned to test for a cross-group setting")
+    prepare.add_argument("--target-rate", type=float, help="Generate a derived view at this sample rate in Hz")
+    prepare.add_argument("--duration", type=float, help="Generate a derived view with this duration in seconds")
+    prepare.add_argument("--target-length", type=int, help="Generate a derived view with this exact time length")
+    prepare.add_argument("--interpolation", choices=["none", "nearest", "linear"], default="linear")
+    prepare.add_argument("--layout", choices=["canonical", "flat", "link-subcarrier"], default="canonical",
+                         help="Derived-view tensor layout; canonical keeps [N,]T,L,S, flat/link-subcarrier flatten non-time signal axes")
+    prepare.add_argument("--links", type=int, help="Expected link/channel count for validation in future view profiles")
+    prepare.add_argument("--subcarriers", type=int, help="Expected subcarrier count for validation in future view profiles")
     return parser
 
 
@@ -98,6 +107,15 @@ def main(argv=None) -> int:
             summary = prepare_dataset(
                 args.dataset_id, args.data_root, args.limit, args.force,
                 args.setting, args.seed, args.ratios, args.holdout,
+                ViewOptions(
+                    target_rate_hz=args.target_rate,
+                    duration_s=args.duration,
+                    target_length=args.target_length,
+                    interpolation=args.interpolation,
+                    layout=args.layout,
+                    links=args.links,
+                    subcarriers=args.subcarriers,
+                ),
             )
         except (ValueError, FileNotFoundError, RuntimeError) as exc:
             print(f"ERROR: {exc}")

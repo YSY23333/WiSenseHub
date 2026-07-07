@@ -16,6 +16,7 @@ from .adapters.xrf_v2 import convert_xrf_v2_h5
 from .quality import write_quality_report
 from .registry import load_adapter_registry
 from .splits import generate_split
+from .views import ViewOptions, create_standard_view
 
 
 @dataclass
@@ -25,6 +26,8 @@ class ConversionRecord:
     report: Optional[str]
     status: str
     error: Optional[str] = None
+    native_output: Optional[str] = None
+    view_report: Optional[str] = None
 
 
 def _safe_stem(path: Path, original_root: Path) -> str:
@@ -82,12 +85,14 @@ def prepare_dataset(
     dataset_id: str, data_root: Path, limit: Optional[int] = None, force: bool = False,
     setting: Optional[str] = None, seed: int = 42, ratios: Optional[Sequence[float]] = None,
     holdout: Optional[Sequence[str]] = None,
+    view_options: Optional[ViewOptions] = None,
 ) -> dict:
     if dataset_id not in registered_datasets():
         raise ValueError(f"unsupported dataset {dataset_id}; supported: {', '.join(registered_datasets())}")
     dataset_root = data_root / dataset_id
     original = dataset_root / "original"
     standardized = dataset_root / "standardized"
+    view_root = standardized / "views"
     reports = dataset_root / "reports"
     standardized.mkdir(parents=True, exist_ok=True)
     reports.mkdir(parents=True, exist_ok=True)
@@ -97,21 +102,36 @@ def prepare_dataset(
     records: List[ConversionRecord] = []
     for source in sources:
         stem = _safe_stem(source, original)
-        output = standardized / f"{stem}.npz"
-        report = reports / f"{stem}.quality.json"
+        native_output = standardized / f"{stem}.npz"
+        output = view_root / f"{stem}.npz" if view_options and view_options.requested() else native_output
+        report = reports / ("views" if output.parent.name == "views" else "") / f"{stem}.quality.json"
+        native_report = reports / f"{stem}.quality.json"
         if output.exists() and not force:
-            records.append(ConversionRecord(str(source), str(output), str(report) if report.exists() else None, "skipped"))
+            records.append(ConversionRecord(
+                str(source), str(output), str(report) if report.exists() else None, "skipped",
+                native_output=str(native_output) if output != native_output else None,
+            ))
             continue
         try:
-            _convert(dataset_id, source, output)
-            write_quality_report(output, report)
-            records.append(ConversionRecord(str(source), str(output), str(report), "converted"))
+            if not native_output.exists() or force:
+                _convert(dataset_id, source, native_output)
+                write_quality_report(native_output, native_report)
+            if view_options and view_options.requested():
+                create_standard_view(native_output, output, view_options)
+                write_quality_report(output, report)
+                records.append(ConversionRecord(
+                    str(source), str(output), str(report), "converted",
+                    native_output=str(native_output), view_report=str(report),
+                ))
+            else:
+                records.append(ConversionRecord(str(source), str(native_output), str(native_report), "converted"))
         except Exception as exc:
             records.append(ConversionRecord(str(source), None, None, "failed", f"{type(exc).__name__}: {exc}"))
     summary = {
         "schema_version": "1.0", "dataset_id": dataset_id,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "directories": {"original": str(original), "standardized": str(standardized), "reports": str(reports)},
+        "view_options": asdict(view_options) if view_options and view_options.requested() else None,
         "source_count": len(sources),
         "converted": sum(record.status == "converted" for record in records),
         "skipped": sum(record.status == "skipped" for record in records),
