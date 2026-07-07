@@ -6,8 +6,10 @@ only been adapted from public documentation or official preprocessing code.
 ## Adapter maturity
 
 - `verified`: converted against at least one official release sample in this
-  repository's local verification workflow. UT-HAR is currently verified with
-  the official SenseFi `X_test/y_test` pair.
+  repository's local verification workflow. The exact verification scope is
+  documented under `docs/verification/`; it may be a full official split or a
+  clearly labeled official byte-prefix/sample when the complete release is
+  multi-GB.
 - `reference-implemented`: implemented from an official loader, model data
   class, preprocessing script, or dataset paper/code reference, with synthetic
   regression tests matching the documented layout.

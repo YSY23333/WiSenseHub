@@ -7,6 +7,9 @@
   `--subcarriers`.
 - Preserved native standardized NPZ files while writing fixed-size model views
   under `standardized/views/`.
+- Verified the WiFi presence/movement adapter on an official Zenodo
+  `G19-10.csi.json.gz` byte-prefix sample and documented the observed
+  `[100, 90]` fixed-rate derived view.
 - Added view regression tests and dataset-page output previews.
 - Documented adapter maturity, licensing boundaries, and known limitations.
 
