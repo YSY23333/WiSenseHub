@@ -10,6 +10,8 @@
 - Verified the WiFi presence/movement adapter on an official Zenodo
   `G19-10.csi.json.gz` byte-prefix sample and documented the observed
   `[100, 90]` fixed-rate derived view.
+- Verified the NIST BreatheSmart adapter by range-extracting the official
+  `Figure 11 a/BreathingPattern1.tar.gz` member from `BreatheSmartv2.zip`.
 - Added view regression tests and dataset-page output previews.
 - Documented adapter maturity, licensing boundaries, and known limitations.
 
