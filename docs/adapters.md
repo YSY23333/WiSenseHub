@@ -17,6 +17,20 @@ Neither tier means that a gated multi-gigabyte release has been downloaded and
 smoke-tested; that stronger claim is recorded separately as `verified` in the
 dataset catalog.
 
+Implementation structure:
+
+```text
+catalog/adapters.json              # dataset id -> handler + source patterns
+src/wifi_datahub/prepare.py         # unified prepare entry point
+src/wifi_datahub/adapters/*.py      # dataset-specific adapter modules
+```
+
+Most datasets now have a named adapter module such as
+`adapters/nist_breathesmart.py`, `adapters/wifi_tad.py`, or
+`adapters/xrf55.py`. Shared parsing helpers remain in `official_profiles.py`
+for compatibility and to avoid duplicating low-level MAT/CSV/Zarr utilities,
+but the public dispatch path is dataset-specific.
+
 | Dataset ID | Tier | Recognized official source |
 |---|---|---|
 | `aril` | reference | processed split MAT |
@@ -45,6 +59,6 @@ dataset catalog.
 | `xrf-v2` | reference | WiFi HDF5 sequence |
 | `xrf55` | reference | WiFi modality NPY |
 
-The executable patterns and direct evidence URLs live in
+The executable handlers, patterns, and direct evidence URLs live in
 [`catalog/adapters.json`](../catalog/adapters.json); this file is explanatory,
 not a second registry.

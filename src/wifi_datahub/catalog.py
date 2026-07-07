@@ -79,8 +79,12 @@ def validate_catalog(root: Path | None = None) -> Tuple[List[Dict[str, Any]], Li
         if extra:
             errors.append(f"catalog/{registry_name}: unknown datasets {extra}")
         if registry_name == "adapters.json":
+            allowed_handlers = {
+                "generic", "official-profile", "aril", "ut-har", "wallhack18k",
+                "wiar-intel5300", "xrf-v2", *catalog_ids,
+            }
             for dataset_id, config in registry.items():
-                if config.get("handler") not in {"generic", "official-profile", "aril", "ut-har", "wallhack18k", "wiar-intel5300", "xrf-v2"}:
+                if config.get("handler") not in allowed_handlers:
                     errors.append(f"catalog/{registry_name}: {dataset_id} has unknown handler")
                 if not config.get("patterns"):
                     errors.append(f"catalog/{registry_name}: {dataset_id} has no source patterns")

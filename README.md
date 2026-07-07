@@ -146,6 +146,8 @@ amplitude-only releases are not presented as calibrated complex CSI. See
 catalog/                 Dataset and task metadata
 schemas/                 JSON schemas
 src/wifi_datahub/        Validation and standardization library
+src/wifi_datahub/adapters/
+                         Dataset-specific conversion adapters
 scripts/                 Catalog and website build utilities
 site/                    GitHub Pages website
 examples/                Reproducible small example

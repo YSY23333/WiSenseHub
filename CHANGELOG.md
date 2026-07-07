@@ -2,6 +2,8 @@
 
 ## 0.6.0 — 2026-07-07
 
+- Split the profile dispatcher into dataset-specific adapter modules while
+  keeping the unified `wisensehub prepare <dataset-id>` interface.
 - Added optional `prepare` derived views with `--target-rate`, `--duration`,
   `--target-length`, `--interpolation`, `--layout`, `--links`, and
   `--subcarriers`.

@@ -8,7 +8,7 @@ from typing import List, Optional, Sequence
 
 from .adapters.aril import convert_aril_mat
 from .adapters.generic import convert_generic
-from .adapters.official_profiles import convert_profile
+from .adapters.profile_registry import DATASET_ADAPTERS, convert_dataset
 from .adapters.intel5300 import convert_wiar_dat
 from .adapters.ut_har import convert_ut_har_npz
 from .adapters.wallhack import convert_wallhack_csv
@@ -74,8 +74,10 @@ def _convert(dataset_id: str, source: Path, output: Path) -> Path:
         return convert_ut_har_npz(source, output)
     if handler == "generic":
         return convert_generic(source, output, dataset_id)
+    if handler in DATASET_ADAPTERS:
+        return convert_dataset(handler, source, output)
     if handler == "official-profile":
-        return convert_profile(dataset_id, source, output)
+        return convert_dataset(dataset_id, source, output)
     if handler == "wiar-intel5300":
         return convert_wiar_dat(source, output)
     raise ValueError(f"unknown adapter handler {handler!r} for {dataset_id}")
