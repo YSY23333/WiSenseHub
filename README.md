@@ -18,6 +18,8 @@ common representation.
   missing-data masks, labels, and provenance.
 - Reproducible conversion commands and a small synthetic example.
 - A static website deployable directly to GitHub Pages.
+- A public quickstart tutorial plus a companion Jupyter notebook for
+  interactive inspection.
 
 ## Quick start
 
@@ -139,6 +141,19 @@ quality reports, and split manifests. Complex CSI, timestamps, relative power,
 and labels are retained when the official source supplies enough information;
 amplitude-only releases are not presented as calibrated complex CSI. See
 [the standard](docs/standard.md) for the exact contract.
+
+## Tutorial and notebook
+
+The GitHub Pages tutorial is designed as the stable public walkthrough:
+
+- Website: `site/tutorial.html`
+- Notebook: `site/notebooks/quickstart.ipynb`
+
+The web page is best for reviewers and first-time users because it loads
+without a Python runtime. The notebook is best for a live demo: it generates
+the synthetic CSI fixture, converts it to WiSenseHub `.npz`, inspects one
+amplitude trace, and shows how the same command pattern applies to official
+dataset releases.
 
 ## Repository layout
 
