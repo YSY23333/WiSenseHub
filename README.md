@@ -147,13 +147,15 @@ amplitude-only releases are not presented as calibrated complex CSI. See
 The GitHub Pages tutorial is designed as the stable public walkthrough:
 
 - Website: `site/tutorial.html`
+- Embedded notebook viewer: `site/notebook.html`
 - Notebook: `site/notebooks/quickstart.ipynb`
 
 The web page is best for reviewers and first-time users because it loads
 without a Python runtime. The notebook is best for a live demo: it generates
 the synthetic CSI fixture, converts it to WiSenseHub `.npz`, inspects one
 amplitude trace, and shows how the same command pattern applies to official
-dataset releases.
+dataset releases. The embedded viewer renders the notebook inside GitHub Pages;
+live browser execution can be added later with JupyterLite or Binder.
 
 ## Repository layout
 

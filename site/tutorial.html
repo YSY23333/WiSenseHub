@@ -27,6 +27,7 @@
       <p>This tutorial starts with a zero-download synthetic fixture, then shows the same command pattern for real official releases. The output is compressed NumPy <code>.npz</code> plus provenance, quality, and split manifests.</p>
       <div class="hero-actions">
         <a class="button primary" href="#zero-download">Run zero-download demo</a>
+        <a class="button secondary" href="#embedded-notebook">View embedded notebook</a>
         <a class="button secondary" href="notebooks/quickstart.ipynb">Download notebook</a>
       </div>
     </section>
@@ -114,8 +115,13 @@ print(manifest["split"]["partition_counts"])</code></pre>
       <div class="section-heading"><div><p class="eyebrow">NOTEBOOK</p><h2>When should we use Jupyter?</h2></div><p>Use the notebook for an interactive demo or interview walkthrough; keep the web tutorial as stable public documentation.</p></div>
       <div class="tutorial-choice">
         <article><h3>GitHub Pages tutorial</h3><p>Best for quick review, copy-paste commands, and explaining the hub structure to new users.</p></article>
-        <article><h3>Jupyter notebook</h3><p>Best for live inspection of arrays, plotting signals, and showing the conversion result step by step.</p><a class="button secondary" href="notebooks/quickstart.ipynb">Open notebook source</a></article>
+        <article><h3>Embedded notebook</h3><p>Best for showing code cells, expected outputs, and the NumPy tensor contract directly inside the website.</p><a class="button secondary" href="notebook.html">Open full notebook view</a></article>
       </div>
+    </section>
+
+    <section id="embedded-notebook" class="tutorial-step">
+      <div class="section-heading"><div><p class="eyebrow">IN-PAGE NOTEBOOK</p><h2>Notebook preview embedded in the Hub</h2></div><p>This static viewer renders the checked-in Jupyter notebook on GitHub Pages. It is visualization-first; live execution can be added later with JupyterLite or Binder.</p></div>
+      <iframe class="notebook-frame" src="notebook.html" title="Embedded WiSenseHub quickstart notebook"></iframe>
     </section>
   </main>
 
