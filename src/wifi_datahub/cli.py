@@ -11,6 +11,7 @@ from .quality import write_quality_report
 from .prepare import prepare_dataset, registered_datasets
 from .registry import load_adapter_registry, load_split_registry
 from .standardize import standardize_csv
+from .task_profiles import TASK_PROFILES
 from .views import ViewOptions
 
 
@@ -51,6 +52,7 @@ def build_parser() -> argparse.ArgumentParser:
     prepare.add_argument("--seed", type=int, default=42)
     prepare.add_argument("--ratios", type=float, nargs=3, metavar=("TRAIN", "VAL", "TEST"))
     prepare.add_argument("--holdout", nargs="+", help="Group values assigned to test for a cross-group setting")
+    prepare.add_argument("--task", help=f"Task/profile default to use for derived views: {', '.join(sorted(TASK_PROFILES))}, or a catalog task id")
     prepare.add_argument("--target-rate", type=float, help="Generate a derived view at this sample rate in Hz")
     prepare.add_argument("--duration", type=float, help="Generate a derived view with this duration in seconds")
     prepare.add_argument("--target-length", type=int, help="Generate a derived view with this exact time length")
@@ -116,6 +118,7 @@ def main(argv=None) -> int:
                     links=args.links,
                     subcarriers=args.subcarriers,
                 ),
+                task=args.task,
             )
         except (ValueError, FileNotFoundError, RuntimeError) as exc:
             print(f"ERROR: {exc}")

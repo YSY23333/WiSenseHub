@@ -16,6 +16,8 @@ from .adapters.xrf_v2 import convert_xrf_v2_h5
 from .quality import write_quality_report
 from .registry import load_adapter_registry
 from .splits import generate_split
+from .catalog import load_dataset_entry
+from .task_profiles import apply_task_profile, profile_for_task
 from .views import ViewOptions, create_standard_view
 
 
@@ -87,7 +89,7 @@ def prepare_dataset(
     dataset_id: str, data_root: Path, limit: Optional[int] = None, force: bool = False,
     setting: Optional[str] = None, seed: int = 42, ratios: Optional[Sequence[float]] = None,
     holdout: Optional[Sequence[str]] = None,
-    view_options: Optional[ViewOptions] = None,
+    view_options: Optional[ViewOptions] = None, task: Optional[str] = None,
 ) -> dict:
     if dataset_id not in registered_datasets():
         raise ValueError(f"unsupported dataset {dataset_id}; supported: {', '.join(registered_datasets())}")
@@ -98,6 +100,15 @@ def prepare_dataset(
     reports = dataset_root / "reports"
     standardized.mkdir(parents=True, exist_ok=True)
     reports.mkdir(parents=True, exist_ok=True)
+    task_profile = None
+    if task:
+        try:
+            dataset_entry = load_dataset_entry(dataset_id)
+            task_profile = profile_for_task(task, dataset_entry.get("tasks"))
+            view_options = apply_task_profile(view_options, task_profile)
+        except FileNotFoundError:
+            task_profile = profile_for_task(task)
+            view_options = apply_task_profile(view_options, task_profile)
     sources = _discover(dataset_id, original)
     if limit is not None:
         sources = sources[:limit]
@@ -134,6 +145,7 @@ def prepare_dataset(
         "created_at": datetime.now(timezone.utc).isoformat(),
         "directories": {"original": str(original), "standardized": str(standardized), "reports": str(reports)},
         "view_options": asdict(view_options) if view_options and view_options.requested() else None,
+        "task_profile": asdict(task_profile) if task_profile else None,
         "source_count": len(sources),
         "converted": sum(record.status == "converted" for record in records),
         "skipped": sum(record.status == "skipped" for record in records),

@@ -32,6 +32,14 @@ def load_datasets(root: Path | None = None) -> List[Dict[str, Any]]:
     return entries
 
 
+def load_dataset_entry(dataset_id: str, root: Path | None = None) -> Dict[str, Any]:
+    root = root or repository_root()
+    path = root / "catalog" / "datasets" / f"{dataset_id}.json"
+    if not path.exists():
+        raise FileNotFoundError(f"dataset catalog entry not found: {dataset_id}")
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
 def _is_url(value: str) -> bool:
     parsed = urlparse(value)
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)

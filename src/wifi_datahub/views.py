@@ -25,6 +25,7 @@ class ViewOptions:
     layout: str = "canonical"
     links: Optional[int] = None
     subcarriers: Optional[int] = None
+    profile: Optional[str] = None
 
     def requested(self) -> bool:
         return any((
@@ -245,6 +246,7 @@ def create_standard_view(input_path: Path, output_path: Path, options: ViewOptio
         "sample_rate_hz": target_rate,
         "duration_s": (float(target_length) / float(target_rate)) if target_rate else metadata.get("duration_s"),
         "view_options": {
+            "profile": options.profile,
             "target_rate_hz": options.target_rate_hz,
             "duration_s": options.duration_s,
             "target_length": options.target_length,

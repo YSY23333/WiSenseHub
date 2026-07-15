@@ -81,6 +81,46 @@ view options are `--target-rate`, `--duration`, `--target-length`,
 `--links`, and `--subcarriers`. The native NPZ remains in `standardized/`; the
 manifest records both paths.
 
+Task-specific defaults can be requested with `--task`. General-purpose sensing
+tasks such as HAR, gesture, fall, occupancy, localization, and identity use a
+100 Hz task-profile view by default. Vital-sign tasks use 10 Hz. Continuous
+TAD/TAL tasks preserve temporal segments while using a 100 Hz view when a
+fixed-rate representation is requested:
+
+```bash
+python -m wifi_datahub prepare figshare-csi-har --setting random --task har --data-root data
+python -m wifi_datahub prepare nist-breathesmart --setting official --task vital_sign --data-root data
+python -m wifi_datahub prepare xrf-v2 --setting official --task tad_tal --data-root data
+```
+
+## Samples and visual previews
+
+Each dataset page now follows the same sample-oriented format:
+
+- required sample coverage: at least one task label and one setting;
+- original/sample file-tree section;
+- before/after standardization preview when a sample is available;
+- standardized preview panels for available task labels;
+- local generation command for datasets whose original files cannot be hosted.
+
+The sample workflow is intentionally license-aware. Hosted samples are only
+included when redistribution is allowed or unambiguous. For gated, very large,
+or restricted datasets, the website records the required label/setting and the
+command to reproduce the sample after the user places the official release
+under `data/<dataset-id>/original/`.
+
+```bash
+python scripts/fetch_samples.py figshare-csi-har wallhack18k
+python -m wifi_datahub prepare figshare-csi-har --setting random --task har --data-root data --limit 1
+python scripts/build_previews.py
+python scripts/build_sample_manifest.py
+```
+
+`scripts/build_previews.py` creates CSI heatmaps from real fetched samples.
+`scripts/build_sample_manifest.py` guarantees that all 25 dataset pages expose
+the same sample/preview structure, even when the actual sample must be generated
+locally because of licensing or access constraints.
+
 All 25 catalog entries have a dataset-aware converter. Twenty-one adapters
 follow an official loader or preprocessing reference; four follow a documented
 release schema where no public preprocessing implementation was available.
