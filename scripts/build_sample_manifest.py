@@ -47,6 +47,40 @@ def file_tree(root: Path) -> list[dict]:
     return entries
 
 
+def zip_file_tree(path: Path) -> list[dict]:
+    """Build the same tree schema from a hosted sample ZIP.
+
+    GitHub Pages publishes only the compact ZIP rather than the duplicate
+    extracted sample directory, so the website must be able to describe the
+    sample without relying on local extraction artifacts.
+    """
+    if not path.exists():
+        return []
+    root: dict[str, dict] = {}
+    with zipfile.ZipFile(path) as handle:
+        for item in handle.infolist():
+            if item.is_dir():
+                continue
+            cursor = root
+            parts = [part for part in Path(item.filename).parts if part not in {".", "/"}]
+            for part in parts[:-1]:
+                cursor = cursor.setdefault(part, {})
+            if parts:
+                cursor[parts[-1]] = {"__file_bytes__": item.file_size}
+
+    def render(nodes: dict[str, dict]) -> list[dict]:
+        entries = []
+        for name in sorted(nodes):
+            node = nodes[name]
+            if "__file_bytes__" in node:
+                entries.append({"name": name, "type": "file", "bytes": node["__file_bytes__"]})
+            else:
+                entries.append({"name": name, "type": "dir", "children": render(node)})
+        return entries
+
+    return render(root)
+
+
 def count_files(root: Path) -> int:
     return sum(1 for path in root.rglob("*") if path.is_file()) if root.exists() else 0
 
@@ -115,7 +149,7 @@ def main() -> int:
             "sample_zip": f"samples/{dataset_id}.zip" if has_zip else None,
             "zip_bytes": zip_bytes or None,
             "file_count": sample_count or count_files(sample_dir),
-            "file_tree": file_tree(sample_dir),
+            "file_tree": file_tree(sample_dir) if sample_dir.exists() else zip_file_tree(zip_path),
             "previews": {},
             "label_previews": label_previews,
             "label_coverage": {
