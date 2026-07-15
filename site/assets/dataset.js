@@ -66,19 +66,32 @@ function setupFigureSection(dataset, sample) {
   return `<section class="setup-figure-top"><h2>Experimental Setup</h2><div class="setup-figures">${cards}</div></section>`;
 }
 
-function sampleRequirement(sample) {
-  const req = sample?.sample_requirement;
-  if (!req) return "";
-  return `<div class="sample-requirement"><h3>Required sample coverage</h3><dl class="facts compact">
-    <div><dt>Task</dt><dd>${escapeHtml(req.task)}</dd></div>
-    <div><dt>Task label</dt><dd>${escapeHtml(req.task_label)}</dd></div>
-    <div><dt>Setting</dt><dd><code>${escapeHtml(req.setting)}</code></dd></div>
-    <div><dt>Setting note</dt><dd>${escapeHtml(req.setting_note)}</dd></div>
-  </dl></div>`;
+function structureBlock({ kind, badge, title, hint, tree, empty }) {
+  return `<article class="structure-block structure-block-${escapeHtml(kind)}"><header><span class="structure-badge">${escapeHtml(badge)}</span><h4>${escapeHtml(title)}</h4><p class="structure-pane-hint">${escapeHtml(hint)}</p></header><div class="structure-block-body">${tree.length ? renderTree(tree) : `<p class="structure-empty">${escapeHtml(empty)}</p>`}</div></article>`;
 }
 
 function sampleStructureSection(sample) {
-  return `<details class="sample-structure" open><summary><h3>Sample structure</h3><span class="structure-hint">${sample.file_count || 0} hosted files — click folders to expand</span></summary>${renderTree(sample.file_tree || [])}</details>`;
+  const originalTree = sample.original_file_tree || [];
+  const standardizedTree = sample.standardized_file_tree || [];
+  const usecaseTree = sample.usecase_file_tree || [];
+  if (!(originalTree.length || standardizedTree.length || usecaseTree.length)) {
+    return `<details class="sample-structure" open><summary><h3>Sample structure</h3><span class="structure-hint">${sample.file_count || 0} files — click folders to expand</span></summary>${renderTree(sample.file_tree || [])}</details>`;
+  }
+  const original = structureBlock({ kind: "original", badge: "1 · Original", title: "Original dataset", hint: `Official release layout · ${sample.original_file_count || 0} files`, tree: originalTree, empty: "No original sample files hosted." });
+  const standardized = structureBlock({ kind: "standardized", badge: "2 · Standardized", title: "Standardized structure", hint: `Prepare output under data/…/standardized/ · ${sample.standardized_file_count || 0} files`, tree: standardizedTree, empty: "Run wisensehub prepare to create standardized NPZ + JSON." });
+  const usecase = structureBlock({ kind: "usecase", badge: "3 · Use case", title: "by_label packaging", hint: `One derived example: one folder per label · ${sample.usecase_file_count || 0} files`, tree: usecaseTree.length ? [{ name: "by_label", type: "dir", children: usecaseTree }] : [], empty: "No by_label use-case samples yet." });
+  return `<details class="sample-structure" open><summary><h3>Sample structure</h3><span class="structure-hint">original → standardized → one use case</span></summary><div class="structure-split structure-split-3">${original}<div class="structure-vs" aria-hidden="true">→</div>${standardized}<div class="structure-vs" aria-hidden="true">→</div>${usecase}</div></details>`;
+}
+
+function dimTable(dimensions) {
+  if (!dimensions?.length) return "";
+  const rows = dimensions.map(item => `<tr><td><code>${escapeHtml(item.axis)}</code></td><td><code>${escapeHtml(item.size)}</code></td><td>${escapeHtml(item.meaning)}</td></tr>`).join("");
+  return `<div class="preview-dim-block"><h4>Tensor dimensions</h4><table class="compact-table"><thead><tr><th>Axis</th><th>Size</th><th>Meaning</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+function metaCard(title, block) {
+  if (!block) return "";
+  return `<article class="preview-meta-card"><h3>${escapeHtml(title)}</h3><dl class="facts compact">${factRows(block.profile)}</dl>${dimTable(block.dimensions)}</article>`;
 }
 
 function localGenerationSection(sample) {
@@ -94,18 +107,24 @@ function panel(title, caption, src) {
 function sampleSections(dataset, sample) {
   if (!sample) return `<section><h2>Data sample</h2><p class="setting-help">Sample manifest has not been generated yet.</p></section>`;
   const hosted = sample.status === "ok" && sample.sample_zip;
+  const licenseNote = dataset.original?.redistribution === "allowed" ? "The original license permits redistribution." : "Check the original license before reusing this sample beyond local evaluation.";
+  const packageParts = [sample.original_file_count ? "original" : null, sample.standardized_file_count ? "standardized" : null, sample.usecase_file_count ? "by_label use case" : null].filter(Boolean).join(" · ");
   const download = hosted
-    ? `<div class="sample-download"><a class="button primary" href="${escapeHtml(sample.sample_zip)}" download>Download sample (${formatBytes(sample.zip_bytes)})</a><small>${sample.file_count || 0} hosted file(s)</small></div>`
+    ? `<div class="sample-download"><a class="button primary" href="${escapeHtml(sample.sample_zip)}" download>Download sample (${formatBytes(sample.zip_bytes)})</a><small>${sample.file_count || 0} files · ${formatBytes(sample.sample_bytes)} uncompressed${packageParts ? ` · includes ${packageParts}` : ""} · ${escapeHtml(licenseNote)}</small></div>`
     : `<p class="sample-status planned">Sample package planned. Original data is not redistributed here unless the release terms allow it.</p>`;
   const previews = sample.previews || {};
+  const grid = sample.standardized_view?.profile || {};
+  const gridNote = grid.tensor_shape ? `Standardized view: <strong>${escapeHtml(grid.tensor_shape)}</strong>${grid.sampling_rate ? ` at <strong>${escapeHtml(grid.sampling_rate)}</strong>` : ""}.` : "";
   const compare = (previews.before || previews.after)
-    ? `<section class="preview-section compact"><h2>Before / after standardization</h2><p class="setting-help preview-lead">Paper-style amplitude heatmaps: <strong>x = time</strong>, <strong>y = subcarrier/channel index</strong>.</p><div class="preview-pair compact">${panel("Original", "official release view", previews.before)}${panel("Standardized", "task-profile NPZ view", previews.after)}</div></section>`
+    ? `<section class="preview-section compact"><h2>CSI preview</h2><p class="setting-help preview-lead">Paper-style amplitude heatmaps: <strong>x = time</strong>, <strong>y = subcarrier</strong>. ${gridNote}</p><div class="preview-compare-meta">${metaCard("Original release", sample.original)}${metaCard("Standardized view", sample.standardized_view)}</div><div class="preview-pair compact">${panel("Original", sample.preview_source_file || "source file", previews.before)}${panel("Standardized", "task-profile view", previews.after)}</div>`
+      + ((sample.label_previews || []).length ? `<div class="preview-label-section"><h3>Per-label CSI samples</h3><div class="preview-label-grid">${(sample.label_previews || []).map(item => panel(item.label, item.kind || "segment", item.image)).join("")}</div></div>` : "")
+      + `</section>`
     : "";
   const labelPanels = (sample.label_previews || []).map(item => panel(item.label, item.kind || "standardized clip", item.image)).join("");
-  const labels = labelPanels
+  const labels = compare ? "" : (labelPanels
     ? `<section class="preview-section compact"><h2>Standardized visualization by task label</h2><div class="preview-label-grid">${labelPanels}</div></section>`
-    : `<section><h2>Standardized visualization by task label</h2><p class="setting-help">No label preview image is hosted yet. Run the local generation command after placing official files under <code>data/${escapeHtml(dataset.id)}/original/</code>.</p></section>`;
-  return `<section><h2>Data sample</h2><p>${escapeHtml(sample.note || "Small subset preserving the source layout and standardized output.")}</p>${download}${sampleRequirement(sample)}${sampleStructureSection(sample)}${localGenerationSection(sample)}</section>${compare}${labels}`;
+    : `<section><h2>Standardized visualization by task label</h2><p class="setting-help">No label preview image is hosted yet. Run the local generation command after placing official files under <code>data/${escapeHtml(dataset.id)}/original/</code>.</p></section>`);
+  return `<section><h2>Data sample</h2><p>${escapeHtml(sample.note || "Small subset preserving the source layout and standardized output.")}</p>${download}${sampleStructureSection(sample)}${localGenerationSection(sample)}</section>${compare}${labels}`;
 }
 
 function taskProfileSection(dataset) {
